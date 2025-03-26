@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# From https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/PackageBuilding.md
+
+source_package=$(dpkg-parsechangelog -n1 --show-field Source)
+version=$(dpkg-parsechangelog -n1 --show-field Version)
+echo "${source_package}_${version}_source.changes"
