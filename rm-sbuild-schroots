@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+schroot -e --all-sessions
+rm /etc/schroot/chroot.d/*
+rm -rf /var/lib/schroot/chroots/*

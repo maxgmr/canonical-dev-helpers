@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+declare -a releases=(
+    "plucky"
+    "oracular"
+    "noble"
+    "jammy"
+    "focal"
+    "bionic"
+    "xenial"
+    "trusty"
+)
+
+for release in "${releases[@]}"; do
+    DEBOOTSTRAP_KEYRING=/usr/share/keyrings/ubuntu-archive-keyring.gpg mk-sbuild \
+        "$release" --arch=amd64
+done
+
+echo "Run 'sudo mk-shm-overlays' to generate RAM-based sbuild overlays."
