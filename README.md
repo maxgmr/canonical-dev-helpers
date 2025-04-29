@@ -4,6 +4,10 @@ Little tools I use to make my Canonical work easier.
 
 To use the bash scripts, I just symlink the script to a directory in my `PATH`; e.g., `/usr/local/bin`.
 
+## lintian-to-copyright.sh
+
+My machine can't get the `pytoml` module globally so I have to create a temporary virtual environment and install it that way. Drop-in replacement for `debian/lintian-to-copyright.sh` in `rustc`.
+
 ## source-changes-file
 
 Automatically extracts the source changes file name from `d/changelog`.
