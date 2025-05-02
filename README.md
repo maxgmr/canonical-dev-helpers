@@ -31,3 +31,7 @@ Adds schroot profiles which use a RAM-based `/dev/shm` overlay for faster build 
 ## rm-sbuild-schroots
 
 Deletes all `sbuild` schroots on the system- be careful!
+
+## push-remove-windeps
+
+When pruning Windows dependencies `rustc`, I need to `quilt push` a specific patch with a long name a lot. I just made this to do this quickly. It may as well be a shell alias but I put it here just to keep it with everything else.

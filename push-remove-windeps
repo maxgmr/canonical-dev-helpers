@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+quilt push prune d-0021-vendor-remove-windows-dependencies.patch
