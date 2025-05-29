@@ -4,6 +4,16 @@ Little tools I use to make my Canonical work easier.
 
 To use the bash scripts, I just symlink the script to a directory in my `PATH`; e.g., `/usr/local/bin`.
 
+## suppress-rustdoc-ui-warnings
+
+_Currently not working. Included for future fix attempts._
+
+On old versions of Ubuntu, certain `rustdoc-ui` `rustc` tests which perform a byte-for-byte `stderr` assertion can fail locally when benign warnings are emitted. This script takes in a list of failing paths and appends a [compiletest directive](https://rustc-dev-guide.rust-lang.org/tests/directives.html) to suppress the warnings.
+
+I've also included a [patch](https://github.com/maxgmr/canonical-dev-helpers/blob/main/ubuntu-suppress-rustdoc-ui-warnings.patch) which suppresses the warnings on the `rustdoc-ui` tests that fail on my machine.
+
+Note that this should _not_ be used in actual uploaded builds! It's just for testing builds locally. Your `rustc` MUST build properly in a PPA _WITHOUT_ this patch!
+
 ## lintian-to-copyright.sh
 
 My machine can't get the `pytoml` module globally so I have to create a temporary virtual environment and install it that way. Drop-in replacement for `debian/lintian-to-copyright.sh` in `rustc`.

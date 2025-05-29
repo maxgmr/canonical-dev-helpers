@@ -1,0 +1,2575 @@
+diff --git a/tests/rustdoc-ui/ambiguous-inherent-assoc-ty.rs b/tests/rustdoc-ui/ambiguous-inherent-assoc-ty.rs
+index 47e431d5cf..e070c36d8e 100644
+--- a/tests/rustdoc-ui/ambiguous-inherent-assoc-ty.rs
++++ b/tests/rustdoc-ui/ambiguous-inherent-assoc-ty.rs
+@@ -1,6 +1,7 @@
+ //@ check-pass
+ // This test ensures that rustdoc does not panic on inherented associated types
+ // that are referred to without fully-qualified syntax.
++//@ compile-flags: -Awarnings
+ 
+ #![feature(inherent_associated_types)]
+ #![allow(incomplete_features)]
+diff --git a/tests/rustdoc-ui/apit-46976.rs b/tests/rustdoc-ui/apit-46976.rs
+index 515b5af946..0983e758c5 100644
+--- a/tests/rustdoc-ui/apit-46976.rs
++++ b/tests/rustdoc-ui/apit-46976.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
+ // https://github.com/rust-lang/rust/issues/46976
++//@ compile-flags: -Awarnings
+ 
+ pub fn ice(f: impl Fn()) {}
+diff --git a/tests/rustdoc-ui/argfile/commandline-argfile.rs b/tests/rustdoc-ui/argfile/commandline-argfile.rs
+index d5a1cd0a5e..31622860b2 100644
+--- a/tests/rustdoc-ui/argfile/commandline-argfile.rs
++++ b/tests/rustdoc-ui/argfile/commandline-argfile.rs
+@@ -1,7 +1,7 @@
+ // Check to see if we can get parameters from an @argsfile file
+ //
+ //@ check-pass
+-//@ compile-flags: --cfg cmdline_set --check-cfg=cfg(cmdline_set,unbroken)
++//@ compile-flags: --cfg cmdline_set --check-cfg=cfg(cmdline_set,unbroken) -Awarnings
+ //@ compile-flags: @{{src-base}}/argfile/commandline-argfile.args
+ 
+ #[cfg(not(cmdline_set))]
+diff --git a/tests/rustdoc-ui/bounded-hr-lifetime.rs b/tests/rustdoc-ui/bounded-hr-lifetime.rs
+index d6c90f552a..43f01c2065 100644
+--- a/tests/rustdoc-ui/bounded-hr-lifetime.rs
++++ b/tests/rustdoc-ui/bounded-hr-lifetime.rs
+@@ -1,5 +1,6 @@
+ // This test ensures that rustdoc doesn't panic on higher-ranked lifetimes
+ // with bounds, because an error should have already been emitted by rustc.
++//@ compile-flags: -Awarnings
+ 
+ pub fn hrlt<'b, 'c>()
+ where
+diff --git a/tests/rustdoc-ui/check-cfg.rs b/tests/rustdoc-ui/check-cfg.rs
+index 6ca37db75a..7aafc4679d 100644
+--- a/tests/rustdoc-ui/check-cfg.rs
++++ b/tests/rustdoc-ui/check-cfg.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags: --check-cfg=cfg()
++//@ compile-flags: --check-cfg=cfg() -Awarnings
+ 
+ /// uniz is nor a builtin nor pass as arguments so is unexpected
+ #[cfg(uniz)]
+diff --git a/tests/rustdoc-ui/check-doc-alias-attr-location.rs b/tests/rustdoc-ui/check-doc-alias-attr-location.rs
+index 6de1960e2e..b8d664ee23 100644
+--- a/tests/rustdoc-ui/check-doc-alias-attr-location.rs
++++ b/tests/rustdoc-ui/check-doc-alias-attr-location.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ pub struct Bar;
+ pub trait Foo {
+     type X;
+diff --git a/tests/rustdoc-ui/check-doc-alias-attr.rs b/tests/rustdoc-ui/check-doc-alias-attr.rs
+index 719b98604c..b8b8f20d51 100644
+--- a/tests/rustdoc-ui/check-doc-alias-attr.rs
++++ b/tests/rustdoc-ui/check-doc-alias-attr.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![crate_type = "lib"]
+ 
+ #[doc(alias = "foo")] // ok!
+diff --git a/tests/rustdoc-ui/circular-intra-doc-link-48414.rs b/tests/rustdoc-ui/circular-intra-doc-link-48414.rs
+index 23dc072c6a..217584716b 100644
+--- a/tests/rustdoc-ui/circular-intra-doc-link-48414.rs
++++ b/tests/rustdoc-ui/circular-intra-doc-link-48414.rs
+@@ -1,5 +1,6 @@
+ //@ aux-build:issue-48414.rs
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // https://github.com/rust-lang/rust/issues/48414
+ 
+diff --git a/tests/rustdoc-ui/const-evalutation-ice.rs b/tests/rustdoc-ui/const-evalutation-ice.rs
+index 0dd3bcaa28..fe437a8910 100644
+--- a/tests/rustdoc-ui/const-evalutation-ice.rs
++++ b/tests/rustdoc-ui/const-evalutation-ice.rs
+@@ -1,4 +1,5 @@
+ // Just check we don't get an ICE for `N`.
++//@ compile-flags: -Awarnings
+ 
+ use std::cell::Cell;
+ use std::mem;
+diff --git a/tests/rustdoc-ui/const_arg_in_type_position.rs b/tests/rustdoc-ui/const_arg_in_type_position.rs
+index 4969e8d195..b0616d8316 100644
+--- a/tests/rustdoc-ui/const_arg_in_type_position.rs
++++ b/tests/rustdoc-ui/const_arg_in_type_position.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ type Array<T, const N: usize> = [T; N];
+ 
+ fn foo<const N: usize>() -> Array<N, ()> {
+diff --git a/tests/rustdoc-ui/coverage/allow_missing_docs.rs b/tests/rustdoc-ui/coverage/allow_missing_docs.rs
+index 43f0d731fd..ac309fc44d 100644
+--- a/tests/rustdoc-ui/coverage/allow_missing_docs.rs
++++ b/tests/rustdoc-ui/coverage/allow_missing_docs.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ //! Make sure to have some docs on your crate root
+diff --git a/tests/rustdoc-ui/coverage/basic.rs b/tests/rustdoc-ui/coverage/basic.rs
+index febcc80fbb..3388074caa 100644
+--- a/tests/rustdoc-ui/coverage/basic.rs
++++ b/tests/rustdoc-ui/coverage/basic.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ #![feature(extern_types)]
+diff --git a/tests/rustdoc-ui/coverage/doc-examples-json.rs b/tests/rustdoc-ui/coverage/doc-examples-json.rs
+index 4aa4bf2377..062537da79 100644
+--- a/tests/rustdoc-ui/coverage/doc-examples-json.rs
++++ b/tests/rustdoc-ui/coverage/doc-examples-json.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:-Z unstable-options --output-format json --show-coverage
++//@ compile-flags:-Z unstable-options --output-format json --show-coverage -Awarnings
+ 
+ // This check ensures that only one doc example is counted since they're "optional" on
+ // certain items.
+diff --git a/tests/rustdoc-ui/coverage/doc-examples.rs b/tests/rustdoc-ui/coverage/doc-examples.rs
+index 283d9c424a..45da367bd2 100644
+--- a/tests/rustdoc-ui/coverage/doc-examples.rs
++++ b/tests/rustdoc-ui/coverage/doc-examples.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ //! This test ensure that only rust code examples are counted.
+diff --git a/tests/rustdoc-ui/coverage/empty.rs b/tests/rustdoc-ui/coverage/empty.rs
+index bcd3e48988..66cf59b43d 100644
+--- a/tests/rustdoc-ui/coverage/empty.rs
++++ b/tests/rustdoc-ui/coverage/empty.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ // an empty crate still has one item to document: the crate root
+diff --git a/tests/rustdoc-ui/coverage/enum-tuple-documented.rs b/tests/rustdoc-ui/coverage/enum-tuple-documented.rs
+index 4cbeb7a164..e31e5be791 100644
+--- a/tests/rustdoc-ui/coverage/enum-tuple-documented.rs
++++ b/tests/rustdoc-ui/coverage/enum-tuple-documented.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ // The point of this test is to ensure that the number of "documented" items
+diff --git a/tests/rustdoc-ui/coverage/enum-tuple.rs b/tests/rustdoc-ui/coverage/enum-tuple.rs
+index 5cbc52a7d0..565e9e7a23 100644
+--- a/tests/rustdoc-ui/coverage/enum-tuple.rs
++++ b/tests/rustdoc-ui/coverage/enum-tuple.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ //! (remember the crate root is still a module)
+diff --git a/tests/rustdoc-ui/coverage/enums.rs b/tests/rustdoc-ui/coverage/enums.rs
+index 29e4198457..1f371fe4eb 100644
+--- a/tests/rustdoc-ui/coverage/enums.rs
++++ b/tests/rustdoc-ui/coverage/enums.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ //! (remember the crate root is still a module)
+diff --git a/tests/rustdoc-ui/coverage/exotic.rs b/tests/rustdoc-ui/coverage/exotic.rs
+index 9fc1498cb2..c8e3426f9f 100644
+--- a/tests/rustdoc-ui/coverage/exotic.rs
++++ b/tests/rustdoc-ui/coverage/exotic.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ #![feature(rustdoc_internals)]
+diff --git a/tests/rustdoc-ui/coverage/json.rs b/tests/rustdoc-ui/coverage/json.rs
+index bfa8dc7008..ee71c229ce 100644
+--- a/tests/rustdoc-ui/coverage/json.rs
++++ b/tests/rustdoc-ui/coverage/json.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:-Z unstable-options --output-format json --show-coverage
++//@ compile-flags:-Z unstable-options --output-format json --show-coverage -Awarnings
+ 
+ pub mod foo {
+     /// Hello!
+diff --git a/tests/rustdoc-ui/coverage/private.rs b/tests/rustdoc-ui/coverage/private.rs
+index 91490eff7a..20bfe49e0c 100644
+--- a/tests/rustdoc-ui/coverage/private.rs
++++ b/tests/rustdoc-ui/coverage/private.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage --document-private-items
++//@ compile-flags:-Z unstable-options --show-coverage --document-private-items -Awarnings
+ //@ check-pass
+ 
+ #![allow(unused)]
+diff --git a/tests/rustdoc-ui/coverage/statics-consts.rs b/tests/rustdoc-ui/coverage/statics-consts.rs
+index 85cc238473..8daaad319d 100644
+--- a/tests/rustdoc-ui/coverage/statics-consts.rs
++++ b/tests/rustdoc-ui/coverage/statics-consts.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ //! gotta make sure we can count statics and consts correctly, too
+diff --git a/tests/rustdoc-ui/coverage/traits.rs b/tests/rustdoc-ui/coverage/traits.rs
+index 89044369e6..36d4ee4a78 100644
+--- a/tests/rustdoc-ui/coverage/traits.rs
++++ b/tests/rustdoc-ui/coverage/traits.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:-Z unstable-options --show-coverage
++//@ compile-flags:-Z unstable-options --show-coverage -Awarnings
+ //@ check-pass
+ 
+ #![feature(trait_alias)]
+diff --git a/tests/rustdoc-ui/crate-reference-in-block-module.rs b/tests/rustdoc-ui/crate-reference-in-block-module.rs
+index e27c485686..f3a45650a7 100644
+--- a/tests/rustdoc-ui/crate-reference-in-block-module.rs
++++ b/tests/rustdoc-ui/crate-reference-in-block-module.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ fn main() {
+     /// [](crate)
+     struct X;
+diff --git a/tests/rustdoc-ui/custom_code_classes_in_docs-warning3.rs b/tests/rustdoc-ui/custom_code_classes_in_docs-warning3.rs
+index 6b1aa455d9..0577fce227 100644
+--- a/tests/rustdoc-ui/custom_code_classes_in_docs-warning3.rs
++++ b/tests/rustdoc-ui/custom_code_classes_in_docs-warning3.rs
+@@ -1,5 +1,6 @@
+ // This test ensures that warnings are working as expected for "custom_code_classes_in_docs"
+ // feature.
++//@ compile-flags: -Awarnings
+ 
+ #![deny(warnings)]
+ #![feature(no_core)]
+diff --git a/tests/rustdoc-ui/deprecated-attrs.rs b/tests/rustdoc-ui/deprecated-attrs.rs
+index e4802ee251..fda6834c90 100644
+--- a/tests/rustdoc-ui/deprecated-attrs.rs
++++ b/tests/rustdoc-ui/deprecated-attrs.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags: --passes unknown-pass
++//@ compile-flags: --passes unknown-pass -Awarnings
+ //@ error-pattern: the `passes` flag no longer functions
+ 
+ #![doc(no_default_passes)]
+diff --git a/tests/rustdoc-ui/deref-generic.rs b/tests/rustdoc-ui/deref-generic.rs
+index 51d6dc3db3..58e1cbeaff 100644
+--- a/tests/rustdoc-ui/deref-generic.rs
++++ b/tests/rustdoc-ui/deref-generic.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // #81395: Fix ICE when recursing into Deref target only differing in type args
++//@ compile-flags: -Awarnings
+ 
+ pub struct Generic<T>(T);
+ 
+diff --git a/tests/rustdoc-ui/diagnostic-width.rs b/tests/rustdoc-ui/diagnostic-width.rs
+index e255496f02..0cd038ede5 100644
+--- a/tests/rustdoc-ui/diagnostic-width.rs
++++ b/tests/rustdoc-ui/diagnostic-width.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --diagnostic-width=10
++//@ compile-flags: --diagnostic-width=10 -Awarnings
+ #![deny(rustdoc::bare_urls)]
+ 
+ /// This is a long line that contains a http://link.com
+diff --git a/tests/rustdoc-ui/disambiguator-endswith-named-suffix.rs b/tests/rustdoc-ui/disambiguator-endswith-named-suffix.rs
+index c3da1fdd7c..4a1f9a905b 100644
+--- a/tests/rustdoc-ui/disambiguator-endswith-named-suffix.rs
++++ b/tests/rustdoc-ui/disambiguator-endswith-named-suffix.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ //@ normalize-stderr-test: "nightly|beta|1\.[0-9][0-9]\.[0-9]" -> "$$CHANNEL"
++//@ compile-flags: -Awarnings
+ 
+ //! [struct@m!()]   //~ WARN: unmatched disambiguator `struct` and suffix `!()`
+ //! [struct@m!{}]
+diff --git a/tests/rustdoc-ui/disambiguator-macro-endswith-exclamatory.rs b/tests/rustdoc-ui/disambiguator-macro-endswith-exclamatory.rs
+index b955090e89..660d3edac7 100644
+--- a/tests/rustdoc-ui/disambiguator-macro-endswith-exclamatory.rs
++++ b/tests/rustdoc-ui/disambiguator-macro-endswith-exclamatory.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ //! [macro@m!] //~ WARN: unresolved link to `m`
+ 
+diff --git a/tests/rustdoc-ui/doc-alias-assoc-const.rs b/tests/rustdoc-ui/doc-alias-assoc-const.rs
+index d95324734b..4c6211fbf3 100644
+--- a/tests/rustdoc-ui/doc-alias-assoc-const.rs
++++ b/tests/rustdoc-ui/doc-alias-assoc-const.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(trait_alias)]
+ 
+ pub struct Foo;
+diff --git a/tests/rustdoc-ui/doc-alias-crate-level.rs b/tests/rustdoc-ui/doc-alias-crate-level.rs
+index 70618ac01d..6b3a3453ae 100644
+--- a/tests/rustdoc-ui/doc-alias-crate-level.rs
++++ b/tests/rustdoc-ui/doc-alias-crate-level.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![doc(alias = "crate-level-not-working")] //~ ERROR
+ 
+ #[doc(alias = "shouldn't work!")] //~ ERROR
+diff --git a/tests/rustdoc-ui/doc-alias-same-name.rs b/tests/rustdoc-ui/doc-alias-same-name.rs
+index da97c26761..03b4f912b6 100644
+--- a/tests/rustdoc-ui/doc-alias-same-name.rs
++++ b/tests/rustdoc-ui/doc-alias-same-name.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![crate_type = "lib"]
+ 
+ #[doc(alias = "Foo")] //~ ERROR
+diff --git a/tests/rustdoc-ui/doc-cfg.rs b/tests/rustdoc-ui/doc-cfg.rs
+index 354d76bc3c..2e8a20ffb9 100644
+--- a/tests/rustdoc-ui/doc-cfg.rs
++++ b/tests/rustdoc-ui/doc-cfg.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(doc_cfg)]
+ 
+ #[doc(cfg(), cfg(foo, bar))]
+diff --git a/tests/rustdoc-ui/doc-include-suggestion.rs b/tests/rustdoc-ui/doc-include-suggestion.rs
+index aff0a24ace..c4db1b0cc8 100644
+--- a/tests/rustdoc-ui/doc-include-suggestion.rs
++++ b/tests/rustdoc-ui/doc-include-suggestion.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #[doc(include = "external-cross-doc.md")]
+ //~^ ERROR unknown `doc` attribute `include`
+ //~| HELP use `doc = include_str!` instead
+diff --git a/tests/rustdoc-ui/doctest/block-doc-comment.rs b/tests/rustdoc-ui/doctest/block-doc-comment.rs
+index df953dc49b..84b1835d74 100644
+--- a/tests/rustdoc-ui/doctest/block-doc-comment.rs
++++ b/tests/rustdoc-ui/doctest/block-doc-comment.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+ // This test ensures that no code block is detected in the doc comments.
+diff --git a/tests/rustdoc-ui/doctest/cfg-test.rs b/tests/rustdoc-ui/doctest/cfg-test.rs
+index 573172349a..5c8853a340 100644
+--- a/tests/rustdoc-ui/doctest/cfg-test.rs
++++ b/tests/rustdoc-ui/doctest/cfg-test.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:--test --test-args --test-threads=1
++//@ compile-flags:--test --test-args --test-threads=1 -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/doctest/check-attr-test.rs b/tests/rustdoc-ui/doctest/check-attr-test.rs
+index 81281db624..9a7afefddd 100644
+--- a/tests/rustdoc-ui/doctest/check-attr-test.rs
++++ b/tests/rustdoc-ui/doctest/check-attr-test.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ 
+ #![deny(rustdoc::invalid_codeblock_attributes)]
+ 
+diff --git a/tests/rustdoc-ui/doctest/check-cfg-test.rs b/tests/rustdoc-ui/doctest/check-cfg-test.rs
+index b3bff381d6..80dee6a0c4 100644
+--- a/tests/rustdoc-ui/doctest/check-cfg-test.rs
++++ b/tests/rustdoc-ui/doctest/check-cfg-test.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags: --test --nocapture --check-cfg=cfg(feature,values("test")) -Z unstable-options
++//@ compile-flags: --test --nocapture --check-cfg=cfg(feature,values("test")) -Z unstable-options -Awarnings
+ //@ normalize-stderr-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+diff --git a/tests/rustdoc-ui/doctest/display-output.rs b/tests/rustdoc-ui/doctest/display-output.rs
+index 70d15ea6f8..e222fdb557 100644
+--- a/tests/rustdoc-ui/doctest/display-output.rs
++++ b/tests/rustdoc-ui/doctest/display-output.rs
+@@ -2,7 +2,7 @@
+ 
+ //@ check-pass
+ //@ edition:2018
+-//@ compile-flags:--test --test-args=--show-output
++//@ compile-flags:--test --test-args=--show-output -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/doctest/doc-comment-multi-line-attr.rs b/tests/rustdoc-ui/doctest/doc-comment-multi-line-attr.rs
+index f95d6f8293..934e838ae6 100644
+--- a/tests/rustdoc-ui/doctest/doc-comment-multi-line-attr.rs
++++ b/tests/rustdoc-ui/doctest/doc-comment-multi-line-attr.rs
+@@ -1,5 +1,5 @@
+ // Regression test for #97440: Multiline inner attribute triggers ICE during doctest
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ check-pass
+diff --git a/tests/rustdoc-ui/doctest/doc-comment-multi-line-cfg-attr.rs b/tests/rustdoc-ui/doctest/doc-comment-multi-line-cfg-attr.rs
+index 8cafadfdc8..d2606646a7 100644
+--- a/tests/rustdoc-ui/doctest/doc-comment-multi-line-cfg-attr.rs
++++ b/tests/rustdoc-ui/doctest/doc-comment-multi-line-cfg-attr.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ check-pass
+diff --git a/tests/rustdoc-ui/doctest/doc-test-attr-pass.rs b/tests/rustdoc-ui/doctest/doc-test-attr-pass.rs
+index edbfde90bc..e62c1718b2 100644
+--- a/tests/rustdoc-ui/doctest/doc-test-attr-pass.rs
++++ b/tests/rustdoc-ui/doctest/doc-test-attr-pass.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![crate_type = "lib"]
+ #![deny(invalid_doc_attributes)]
+diff --git a/tests/rustdoc-ui/doctest/doc-test-attr.rs b/tests/rustdoc-ui/doctest/doc-test-attr.rs
+index 8570252c44..9928f02d09 100644
+--- a/tests/rustdoc-ui/doctest/doc-test-attr.rs
++++ b/tests/rustdoc-ui/doctest/doc-test-attr.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![crate_type = "lib"]
+ 
+ #![doc(test)]
+diff --git a/tests/rustdoc-ui/doctest/doc-test-doctest-feature.rs b/tests/rustdoc-ui/doctest/doc-test-doctest-feature.rs
+index fca1f51ed2..207605139b 100644
+--- a/tests/rustdoc-ui/doctest/doc-test-doctest-feature.rs
++++ b/tests/rustdoc-ui/doctest/doc-test-doctest-feature.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/doctest/doc-test-rustdoc-feature.rs b/tests/rustdoc-ui/doctest/doc-test-rustdoc-feature.rs
+index 6d12d7af56..838dda5404 100644
+--- a/tests/rustdoc-ui/doctest/doc-test-rustdoc-feature.rs
++++ b/tests/rustdoc-ui/doctest/doc-test-rustdoc-feature.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/doctest/doctest-edition.rs b/tests/rustdoc-ui/doctest/doctest-edition.rs
+index 008c84f716..7ec550da5a 100644
+--- a/tests/rustdoc-ui/doctest/doctest-edition.rs
++++ b/tests/rustdoc-ui/doctest/doctest-edition.rs
+@@ -1,4 +1,5 @@
+ //@ edition:2021
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::invalid_rust_codeblocks)]
+ //~^ NOTE lint level is defined here
+diff --git a/tests/rustdoc-ui/doctest/doctest-multiline-crate-attribute.rs b/tests/rustdoc-ui/doctest/doctest-multiline-crate-attribute.rs
+index b446492e47..087c814751 100644
+--- a/tests/rustdoc-ui/doctest/doctest-multiline-crate-attribute.rs
++++ b/tests/rustdoc-ui/doctest/doctest-multiline-crate-attribute.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:--test --test-args=--test-threads=1
++//@ compile-flags:--test --test-args=--test-threads=1 -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ check-pass
+diff --git a/tests/rustdoc-ui/doctest/doctest-no-run-invalid-langstring-124577.rs b/tests/rustdoc-ui/doctest/doctest-no-run-invalid-langstring-124577.rs
+index 571bc94e30..5ea011827b 100644
+--- a/tests/rustdoc-ui/doctest/doctest-no-run-invalid-langstring-124577.rs
++++ b/tests/rustdoc-ui/doctest/doctest-no-run-invalid-langstring-124577.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ check-pass
+ #![allow(rustdoc::invalid_codeblock_attributes)]
+ 
+diff --git a/tests/rustdoc-ui/doctest/doctest-output.rs b/tests/rustdoc-ui/doctest/doctest-output.rs
+index 72394a4bed..550a22c1d8 100644
+--- a/tests/rustdoc-ui/doctest/doctest-output.rs
++++ b/tests/rustdoc-ui/doctest/doctest-output.rs
+@@ -1,6 +1,6 @@
+ //@ edition:2018
+ //@ aux-build:extern_macros.rs
+-//@ compile-flags:--test --test-args=--test-threads=1
++//@ compile-flags:--test --test-args=--test-threads=1 -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ check-pass
+diff --git a/tests/rustdoc-ui/doctest/failed-doctest-compile-fail.rs b/tests/rustdoc-ui/doctest/failed-doctest-compile-fail.rs
+index 4d0e035f86..a1dc0dac8d 100644
+--- a/tests/rustdoc-ui/doctest/failed-doctest-compile-fail.rs
++++ b/tests/rustdoc-ui/doctest/failed-doctest-compile-fail.rs
+@@ -1,7 +1,7 @@
+ // FIXME: if/when the output of the test harness can be tested on its own, this test should be
+ // adapted to use that, and that normalize line can go away
+ 
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ failure-status: 101
+diff --git a/tests/rustdoc-ui/doctest/failed-doctest-extra-semicolon-on-item.rs b/tests/rustdoc-ui/doctest/failed-doctest-extra-semicolon-on-item.rs
+index b65ef43270..359056a2a8 100644
+--- a/tests/rustdoc-ui/doctest/failed-doctest-extra-semicolon-on-item.rs
++++ b/tests/rustdoc-ui/doctest/failed-doctest-extra-semicolon-on-item.rs
+@@ -1,7 +1,7 @@
+ // FIXME: if/when the output of the test harness can be tested on its own, this test should be
+ // adapted to use that, and that normalize line can go away
+ 
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ failure-status: 101
+diff --git a/tests/rustdoc-ui/doctest/failed-doctest-missing-codes.rs b/tests/rustdoc-ui/doctest/failed-doctest-missing-codes.rs
+index 766d948614..661420e8f4 100644
+--- a/tests/rustdoc-ui/doctest/failed-doctest-missing-codes.rs
++++ b/tests/rustdoc-ui/doctest/failed-doctest-missing-codes.rs
+@@ -1,7 +1,7 @@
+ // FIXME: if/when the output of the test harness can be tested on its own, this test should be
+ // adapted to use that, and that normalize line can go away
+ 
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ failure-status: 101
+diff --git a/tests/rustdoc-ui/doctest/failed-doctest-output.rs b/tests/rustdoc-ui/doctest/failed-doctest-output.rs
+index 160796065f..d455d4b37b 100644
+--- a/tests/rustdoc-ui/doctest/failed-doctest-output.rs
++++ b/tests/rustdoc-ui/doctest/failed-doctest-output.rs
+@@ -5,7 +5,7 @@
+ // FIXME: if/when the output of the test harness can be tested on its own, this test should be
+ // adapted to use that, and that normalize line can go away
+ 
+-//@ compile-flags:--test --test-args --test-threads=1
++//@ compile-flags:--test --test-args --test-threads=1 -Awarnings
+ //@ rustc-env:RUST_BACKTRACE=0
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+diff --git a/tests/rustdoc-ui/doctest/failed-doctest-should-panic.rs b/tests/rustdoc-ui/doctest/failed-doctest-should-panic.rs
+index b24687993e..1d7de56ee8 100644
+--- a/tests/rustdoc-ui/doctest/failed-doctest-should-panic.rs
++++ b/tests/rustdoc-ui/doctest/failed-doctest-should-panic.rs
+@@ -1,7 +1,7 @@
+ // FIXME: if/when the output of the test harness can be tested on its own, this test should be
+ // adapted to use that, and that normalize line can go away
+ 
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ failure-status: 101
+diff --git a/tests/rustdoc-ui/doctest/no-run-flag.rs b/tests/rustdoc-ui/doctest/no-run-flag.rs
+index 0f7a0a175f..7b284d9d88 100644
+--- a/tests/rustdoc-ui/doctest/no-run-flag.rs
++++ b/tests/rustdoc-ui/doctest/no-run-flag.rs
+@@ -1,7 +1,7 @@
+ // test the behavior of the --no-run flag
+ 
+ //@ check-pass
+-//@ compile-flags:-Z unstable-options --test --no-run --test-args=--test-threads=1
++//@ compile-flags:-Z unstable-options --test --no-run --test-args=--test-threads=1 -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/doctest/nocapture-fail.rs b/tests/rustdoc-ui/doctest/nocapture-fail.rs
+index db4062e849..2106985f93 100644
+--- a/tests/rustdoc-ui/doctest/nocapture-fail.rs
++++ b/tests/rustdoc-ui/doctest/nocapture-fail.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:--test -Zunstable-options --nocapture
++//@ compile-flags:--test -Zunstable-options --nocapture -Awarnings
+ //@ normalize-stderr-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+diff --git a/tests/rustdoc-ui/doctest/nocapture.rs b/tests/rustdoc-ui/doctest/nocapture.rs
+index 3b87dad49f..8b02a66288 100644
+--- a/tests/rustdoc-ui/doctest/nocapture.rs
++++ b/tests/rustdoc-ui/doctest/nocapture.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:--test -Zunstable-options --nocapture
++//@ compile-flags:--test -Zunstable-options --nocapture -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/doctest/non-local-defs-impl.rs b/tests/rustdoc-ui/doctest/non-local-defs-impl.rs
+index 37c80bc1f2..b27788788f 100644
+--- a/tests/rustdoc-ui/doctest/non-local-defs-impl.rs
++++ b/tests/rustdoc-ui/doctest/non-local-defs-impl.rs
+@@ -2,7 +2,7 @@
+ //@ edition:2018
+ //@ failure-status: 101
+ //@ aux-build:pub_trait.rs
+-//@ compile-flags: --test --test-args --test-threads=1
++//@ compile-flags: --test --test-args --test-threads=1 -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/doctest/non_local_defs.rs b/tests/rustdoc-ui/doctest/non_local_defs.rs
+index 83327eb1e3..1459159c81 100644
+--- a/tests/rustdoc-ui/doctest/non_local_defs.rs
++++ b/tests/rustdoc-ui/doctest/non_local_defs.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:--test --test-args --test-threads=1 --nocapture -Zunstable-options
++//@ compile-flags:--test --test-args --test-threads=1 --nocapture -Zunstable-options -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stderr-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+diff --git a/tests/rustdoc-ui/doctest/private-doc-test.rs b/tests/rustdoc-ui/doctest/private-doc-test.rs
+index 911cbdbb89..2a2383acf8 100644
+--- a/tests/rustdoc-ui/doctest/private-doc-test.rs
++++ b/tests/rustdoc-ui/doctest/private-doc-test.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::private_doc_tests)]
+ 
+diff --git a/tests/rustdoc-ui/doctest/private-item-doc-test.rs b/tests/rustdoc-ui/doctest/private-item-doc-test.rs
+index 1a3d6cc636..94927d4028 100644
+--- a/tests/rustdoc-ui/doctest/private-item-doc-test.rs
++++ b/tests/rustdoc-ui/doctest/private-item-doc-test.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::private_doc_tests)]
+ 
+ mod foo {
+diff --git a/tests/rustdoc-ui/doctest/private-public-item-doc-test.rs b/tests/rustdoc-ui/doctest/private-public-item-doc-test.rs
+index 7cc62b38cc..dd4f008a84 100644
+--- a/tests/rustdoc-ui/doctest/private-public-item-doc-test.rs
++++ b/tests/rustdoc-ui/doctest/private-public-item-doc-test.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::private_doc_tests)]
+ 
+ mod foo {
+diff --git a/tests/rustdoc-ui/doctest/public-reexported-item-doc-test.rs b/tests/rustdoc-ui/doctest/public-reexported-item-doc-test.rs
+index e786c03470..c0a2a51b28 100644
+--- a/tests/rustdoc-ui/doctest/public-reexported-item-doc-test.rs
++++ b/tests/rustdoc-ui/doctest/public-reexported-item-doc-test.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::private_doc_tests)]
+ 
+diff --git a/tests/rustdoc-ui/doctest/test-compile-fail1.rs b/tests/rustdoc-ui/doctest/test-compile-fail1.rs
+index 278f01f4c8..db026ac0b2 100644
+--- a/tests/rustdoc-ui/doctest/test-compile-fail1.rs
++++ b/tests/rustdoc-ui/doctest/test-compile-fail1.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ 
+ /// ```
+ /// assert!(true)
+diff --git a/tests/rustdoc-ui/doctest/test-compile-fail2.rs b/tests/rustdoc-ui/doctest/test-compile-fail2.rs
+index 7432cc9f82..b9a40773ca 100644
+--- a/tests/rustdoc-ui/doctest/test-compile-fail2.rs
++++ b/tests/rustdoc-ui/doctest/test-compile-fail2.rs
+@@ -1,3 +1,3 @@
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ 
+ fail
+diff --git a/tests/rustdoc-ui/doctest/test-compile-fail3.rs b/tests/rustdoc-ui/doctest/test-compile-fail3.rs
+index a2486d9dc6..a9a74cc230 100644
+--- a/tests/rustdoc-ui/doctest/test-compile-fail3.rs
++++ b/tests/rustdoc-ui/doctest/test-compile-fail3.rs
+@@ -1,3 +1,3 @@
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ 
+ "fail
+diff --git a/tests/rustdoc-ui/doctest/test-no_std.rs b/tests/rustdoc-ui/doctest/test-no_std.rs
+index b8af892552..696c33076c 100644
+--- a/tests/rustdoc-ui/doctest/test-no_std.rs
++++ b/tests/rustdoc-ui/doctest/test-no_std.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ check-pass
+diff --git a/tests/rustdoc-ui/doctest/test-type.rs b/tests/rustdoc-ui/doctest/test-type.rs
+index 846a98a853..2a60734464 100644
+--- a/tests/rustdoc-ui/doctest/test-type.rs
++++ b/tests/rustdoc-ui/doctest/test-type.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --test --test-args=--test-threads=1
++//@ compile-flags: --test --test-args=--test-threads=1 -Awarnings
+ //@ check-pass
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+diff --git a/tests/rustdoc-ui/doctest/unparseable-doc-test.rs b/tests/rustdoc-ui/doctest/unparseable-doc-test.rs
+index 43acfa6de3..f35efddbfd 100644
+--- a/tests/rustdoc-ui/doctest/unparseable-doc-test.rs
++++ b/tests/rustdoc-ui/doctest/unparseable-doc-test.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --test
++//@ compile-flags: --test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/doctest" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ failure-status: 101
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/async.rs b/tests/rustdoc-ui/error-in-impl-trait/async.rs
+index b7e740163c..359dc25bcf 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/async.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/async.rs
+@@ -1,5 +1,6 @@
+ //@ edition:2018
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ /// Should compile fine
+ pub async fn a() -> u32 {
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/closure.rs b/tests/rustdoc-ui/error-in-impl-trait/closure.rs
+index 74aae098e5..cc1de07e77 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/closure.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/closure.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // manually desugared version of an `async fn` (but with a closure instead of a coroutine)
++//@ compile-flags: -Awarnings
+ pub fn a() -> impl Fn() -> u32 {
+     || content::doesnt::matter()
+ }
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/const-generics.rs b/tests/rustdoc-ui/error-in-impl-trait/const-generics.rs
+index 948014bb85..28ad7a2fa0 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/const-generics.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/const-generics.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ //@ edition:2018
++//@ compile-flags: -Awarnings
+ trait ValidTrait {}
+ 
+ /// This has docs
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/generic-argument.rs b/tests/rustdoc-ui/error-in-impl-trait/generic-argument.rs
+index 735d0f5db3..15558c562a 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/generic-argument.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/generic-argument.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ trait ValidTrait {}
+ 
+ /// This has docs
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/impl-keyword-closure.rs b/tests/rustdoc-ui/error-in-impl-trait/impl-keyword-closure.rs
+index fef2520ddb..29801e865c 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/impl-keyword-closure.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/impl-keyword-closure.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ pub trait ValidTrait {}
+ /// This returns impl trait
+ pub fn g() -> impl ValidTrait {
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/impl-keyword.rs b/tests/rustdoc-ui/error-in-impl-trait/impl-keyword.rs
+index 0cb5c33ef0..c0ece065e4 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/impl-keyword.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/impl-keyword.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ pub trait ValidTrait {}
+ /// This returns impl trait
+ pub fn g() -> impl ValidTrait {
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type-2.rs b/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type-2.rs
+index 7151ebd599..95c8353903 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type-2.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type-2.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ pub fn f() -> impl Sized {
+     pub enum E {
+         //~^ ERROR: recursive type
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type-impl-trait-return.rs b/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type-impl-trait-return.rs
+index dfa528acb2..e45d59d72f 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type-impl-trait-return.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type-impl-trait-return.rs
+@@ -1,6 +1,7 @@
+ //@ normalize-stderr-test: "`.*`" -> "`DEF_ID`"
+ //@ normalize-stdout-test: "`.*`" -> "`DEF_ID`"
+ //@ edition:2018
++//@ compile-flags: -Awarnings
+ 
+ pub async fn f() -> impl std::fmt::Debug {
+     #[derive(Debug)]
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type.rs b/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type.rs
+index 1f85505172..2f521b89f6 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/infinite-recursive-type.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ fn f() -> impl Sized {
+     enum E {
+         //~^ ERROR: recursive type
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/realistic-async.rs b/tests/rustdoc-ui/error-in-impl-trait/realistic-async.rs
+index 6c53c2912e..e91d0df5ed 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/realistic-async.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/realistic-async.rs
+@@ -1,5 +1,6 @@
+ //@ edition:2018
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ mod windows {
+     pub trait WinFoo {
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/trait-alias-closure.rs b/tests/rustdoc-ui/error-in-impl-trait/trait-alias-closure.rs
+index b3fd59a727..6bc8e4807d 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/trait-alias-closure.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/trait-alias-closure.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ #![feature(type_alias_impl_trait)]
+ 
+ pub trait ValidTrait {}
+diff --git a/tests/rustdoc-ui/error-in-impl-trait/trait-alias.rs b/tests/rustdoc-ui/error-in-impl-trait/trait-alias.rs
+index 9e715e0d32..839d89bb82 100644
+--- a/tests/rustdoc-ui/error-in-impl-trait/trait-alias.rs
++++ b/tests/rustdoc-ui/error-in-impl-trait/trait-alias.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ #![feature(type_alias_impl_trait)]
+ 
+ pub trait ValidTrait {}
+diff --git a/tests/rustdoc-ui/feature-gate-doc_cfg_hide.rs b/tests/rustdoc-ui/feature-gate-doc_cfg_hide.rs
+index 17812018b9..3995a04efc 100644
+--- a/tests/rustdoc-ui/feature-gate-doc_cfg_hide.rs
++++ b/tests/rustdoc-ui/feature-gate-doc_cfg_hide.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![doc(cfg_hide(test))]
+ //~^ ERROR `#[doc(cfg_hide)]` is experimental
+ 
+diff --git a/tests/rustdoc-ui/hidden-trait-method-34423.rs b/tests/rustdoc-ui/hidden-trait-method-34423.rs
+index 8f3572e35b..31a0c6d811 100644
+--- a/tests/rustdoc-ui/hidden-trait-method-34423.rs
++++ b/tests/rustdoc-ui/hidden-trait-method-34423.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // https://github.com/rust-lang/rust/issues/34423
++//@ compile-flags: -Awarnings
+ 
+ pub struct Foo;
+ 
+diff --git a/tests/rustdoc-ui/ice-assoc-const-for-primitive-31808.rs b/tests/rustdoc-ui/ice-assoc-const-for-primitive-31808.rs
+index 2c1c666b22..7bf1a58459 100644
+--- a/tests/rustdoc-ui/ice-assoc-const-for-primitive-31808.rs
++++ b/tests/rustdoc-ui/ice-assoc-const-for-primitive-31808.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // Test that associated item impls on primitive types don't crash rustdoc
+ 
+diff --git a/tests/rustdoc-ui/ice-assoc-type-loop-102154.rs b/tests/rustdoc-ui/ice-assoc-type-loop-102154.rs
+index 68e22ce6ea..1388ac7f44 100644
+--- a/tests/rustdoc-ui/ice-assoc-type-loop-102154.rs
++++ b/tests/rustdoc-ui/ice-assoc-type-loop-102154.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // https://github.com/rust-lang/rust/issues/102154
++//@ compile-flags: -Awarnings
+ 
+ trait A<Y, N> {
+     type B;
+diff --git a/tests/rustdoc-ui/ice-blanket-impl-119792.rs b/tests/rustdoc-ui/ice-blanket-impl-119792.rs
+index 90f0ea8469..fcbda9943b 100644
+--- a/tests/rustdoc-ui/ice-blanket-impl-119792.rs
++++ b/tests/rustdoc-ui/ice-blanket-impl-119792.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // https://github.com/rust-lang/rust/issues/119792
++//@ compile-flags: -Awarnings
+ 
+ struct Wrapper<T>(T);
+ 
+diff --git a/tests/rustdoc-ui/ice-blanket-impl-52873.rs b/tests/rustdoc-ui/ice-blanket-impl-52873.rs
+index b150d41ce2..49b2f90a39 100644
+--- a/tests/rustdoc-ui/ice-blanket-impl-52873.rs
++++ b/tests/rustdoc-ui/ice-blanket-impl-52873.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // https://github.com/rust-lang/rust/issues/52873
++//@ compile-flags: -Awarnings
+ #![crate_name="foo"]
+ 
+ // Regression test for #52873. We used to ICE due to unexpected
+diff --git a/tests/rustdoc-ui/ice-blanket-impl-56701.rs b/tests/rustdoc-ui/ice-blanket-impl-56701.rs
+index 13b0fc9032..f78f84399a 100644
+--- a/tests/rustdoc-ui/ice-blanket-impl-56701.rs
++++ b/tests/rustdoc-ui/ice-blanket-impl-56701.rs
+@@ -1,6 +1,7 @@
+ //@ check-pass
+ // This shouldn't cause a stack overflow when rustdoc is run
+ // https://github.com/rust-lang/rust/issues/56701
++//@ compile-flags: -Awarnings
+ 
+ use std::ops::Deref;
+ use std::ops::DerefMut;
+diff --git a/tests/rustdoc-ui/ice-blanket-impl-selection-55001.rs b/tests/rustdoc-ui/ice-blanket-impl-selection-55001.rs
+index 89d3904af4..0ef42327af 100644
+--- a/tests/rustdoc-ui/ice-blanket-impl-selection-55001.rs
++++ b/tests/rustdoc-ui/ice-blanket-impl-selection-55001.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // https://github.com/rust-lang/rust/issues/55001
++//@ compile-flags: -Awarnings
+ #![crate_name="foo"]
+ 
+ // Regression test for issue #55001. Previously, we would incorrectly
+diff --git a/tests/rustdoc-ui/ice-bug-report-url.rs b/tests/rustdoc-ui/ice-bug-report-url.rs
+index f270340e07..2c2e556094 100644
+--- a/tests/rustdoc-ui/ice-bug-report-url.rs
++++ b/tests/rustdoc-ui/ice-bug-report-url.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: -Ztreat-err-as-bug
++//@ compile-flags: -Ztreat-err-as-bug -Awarnings
+ //@ rustc-env:RUSTC_ICE=0
+ //@ failure-status: 101
+ //@ error-pattern: aborting due to
+diff --git a/tests/rustdoc-ui/ice-cross-crate-opaque-assoc-type-73061.rs b/tests/rustdoc-ui/ice-cross-crate-opaque-assoc-type-73061.rs
+index 1434bef49e..ea06b04066 100644
+--- a/tests/rustdoc-ui/ice-cross-crate-opaque-assoc-type-73061.rs
++++ b/tests/rustdoc-ui/ice-cross-crate-opaque-assoc-type-73061.rs
+@@ -1,4 +1,5 @@
+ // Regression test for ICE https://github.com/rust-lang/rust/issues/73061
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ //@ aux-build:issue-73061.rs
+diff --git a/tests/rustdoc-ui/ice-method-where-clause-circular-100620.rs b/tests/rustdoc-ui/ice-method-where-clause-circular-100620.rs
+index e12b214410..73f45f7c78 100644
+--- a/tests/rustdoc-ui/ice-method-where-clause-circular-100620.rs
++++ b/tests/rustdoc-ui/ice-method-where-clause-circular-100620.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // https://github.com/rust-lang/rust/issues/100620
++//@ compile-flags: -Awarnings
+ 
+ pub trait Bar<S> {}
+ 
+diff --git a/tests/rustdoc-ui/ignore-block-help.rs b/tests/rustdoc-ui/ignore-block-help.rs
+index bc46cdb0e0..ee578d66fe 100644
+--- a/tests/rustdoc-ui/ignore-block-help.rs
++++ b/tests/rustdoc-ui/ignore-block-help.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ /// ```ignore (to-prevent-tidy-error)
+ /// let heart = '❤️';
+diff --git a/tests/rustdoc-ui/impl-fn-nesting.rs b/tests/rustdoc-ui/impl-fn-nesting.rs
+index a927f6bd79..d5b79dd87e 100644
+--- a/tests/rustdoc-ui/impl-fn-nesting.rs
++++ b/tests/rustdoc-ui/impl-fn-nesting.rs
+@@ -1,5 +1,6 @@
+ // Ensure that rustdoc gives errors for trait impls inside function bodies that don't resolve.
+ // See https://github.com/rust-lang/rust/pull/73566
++//@ compile-flags: -Awarnings
+ pub struct ValidType;
+ pub trait ValidTrait {}
+ pub trait NeedsBody {
+diff --git a/tests/rustdoc-ui/include-str-bare-urls.rs b/tests/rustdoc-ui/include-str-bare-urls.rs
+index c452c88cdd..f1817d447f 100644
+--- a/tests/rustdoc-ui/include-str-bare-urls.rs
++++ b/tests/rustdoc-ui/include-str-bare-urls.rs
+@@ -10,6 +10,7 @@
+ // snapshot includes this error, but Compiletest doesn't see it.
+ //
+ // If the stderr file changes, make sure the warning points at the URL!
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::bare_urls)]
+ #![doc=include_str!("auxiliary/include-str-bare-urls.md")]
+diff --git a/tests/rustdoc-ui/infinite-recursive-type.rs b/tests/rustdoc-ui/infinite-recursive-type.rs
+index 32793fc4f7..1c513bbfbd 100644
+--- a/tests/rustdoc-ui/infinite-recursive-type.rs
++++ b/tests/rustdoc-ui/infinite-recursive-type.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ enum E {
+ //~^ ERROR recursive type `E` has infinite size
+     V(E),
+diff --git a/tests/rustdoc-ui/inherent-assoc-consts-36031.rs b/tests/rustdoc-ui/inherent-assoc-consts-36031.rs
+index e487d13067..bc2ed8fcf8 100644
+--- a/tests/rustdoc-ui/inherent-assoc-consts-36031.rs
++++ b/tests/rustdoc-ui/inherent-assoc-consts-36031.rs
+@@ -2,6 +2,7 @@
+ //@ check-pass
+ //@ build-aux-docs
+ //@ ignore-cross-compile
++//@ compile-flags: -Awarnings
+ 
+ // https://github.com/rust-lang/rust/issues/36031
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/alias-ice.rs b/tests/rustdoc-ui/intra-doc/alias-ice.rs
+index 51922caeb2..dc7f27beb1 100644
+--- a/tests/rustdoc-ui/intra-doc/alias-ice.rs
++++ b/tests/rustdoc-ui/intra-doc/alias-ice.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ pub type TypeAlias = usize;
+diff --git a/tests/rustdoc-ui/intra-doc/ambiguity.rs b/tests/rustdoc-ui/intra-doc/ambiguity.rs
+index 0290b85820..d3b0ef0103 100644
+--- a/tests/rustdoc-ui/intra-doc/ambiguity.rs
++++ b/tests/rustdoc-ui/intra-doc/ambiguity.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ #![allow(non_camel_case_types)]
+ #![allow(non_upper_case_globals)]
+diff --git a/tests/rustdoc-ui/intra-doc/anchors.rs b/tests/rustdoc-ui/intra-doc/anchors.rs
+index 34e11c7c7b..4cfe8cf084 100644
+--- a/tests/rustdoc-ui/intra-doc/anchors.rs
++++ b/tests/rustdoc-ui/intra-doc/anchors.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ // A few tests on anchors.
+diff --git a/tests/rustdoc-ui/intra-doc/assoc-field.rs b/tests/rustdoc-ui/intra-doc/assoc-field.rs
+index 00373fe21d..84599f347a 100644
+--- a/tests/rustdoc-ui/intra-doc/assoc-field.rs
++++ b/tests/rustdoc-ui/intra-doc/assoc-field.rs
+@@ -1,4 +1,5 @@
+ // Traits in scope are collected for doc links in field attributes.
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ //@ aux-build: assoc-field-dep.rs
+diff --git a/tests/rustdoc-ui/intra-doc/assoc-item-not-in-scope.rs b/tests/rustdoc-ui/intra-doc/assoc-item-not-in-scope.rs
+index 0976515f4a..9796645587 100644
+--- a/tests/rustdoc-ui/intra-doc/assoc-item-not-in-scope.rs
++++ b/tests/rustdoc-ui/intra-doc/assoc-item-not-in-scope.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ #[derive(Debug)]
+diff --git a/tests/rustdoc-ui/intra-doc/assoc-mod-inner-outer.rs b/tests/rustdoc-ui/intra-doc/assoc-mod-inner-outer.rs
+index cb656edb5b..fd4c0dda62 100644
+--- a/tests/rustdoc-ui/intra-doc/assoc-mod-inner-outer.rs
++++ b/tests/rustdoc-ui/intra-doc/assoc-mod-inner-outer.rs
+@@ -1,4 +1,5 @@
+ // Traits in scope are collected for doc links in both outer and inner module attributes.
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ //@ aux-build: assoc-mod-inner-outer-dep.rs
+diff --git a/tests/rustdoc-ui/intra-doc/broken-link-in-unused-doc-string.rs b/tests/rustdoc-ui/intra-doc/broken-link-in-unused-doc-string.rs
+index b88a52fb80..58fa395bde 100644
+--- a/tests/rustdoc-ui/intra-doc/broken-link-in-unused-doc-string.rs
++++ b/tests/rustdoc-ui/intra-doc/broken-link-in-unused-doc-string.rs
+@@ -1,4 +1,5 @@
+ // Test that we don't ICE with broken links that don't show up in the docs.
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ //@ edition: 2021
+diff --git a/tests/rustdoc-ui/intra-doc/broken-reexport.rs b/tests/rustdoc-ui/intra-doc/broken-reexport.rs
+index 233396fbdd..ae0f8adc56 100644
+--- a/tests/rustdoc-ui/intra-doc/broken-reexport.rs
++++ b/tests/rustdoc-ui/intra-doc/broken-reexport.rs
+@@ -1,5 +1,6 @@
+ //@ aux-build:intra-doc-broken.rs
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/crate-nonexistent.rs b/tests/rustdoc-ui/intra-doc/crate-nonexistent.rs
+index ceecfa6816..1c80fa74c0 100644
+--- a/tests/rustdoc-ui/intra-doc/crate-nonexistent.rs
++++ b/tests/rustdoc-ui/intra-doc/crate-nonexistent.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ /// [crate::DoesNotExist]
+diff --git a/tests/rustdoc-ui/intra-doc/deny-intra-link-resolution-failure.rs b/tests/rustdoc-ui/intra-doc/deny-intra-link-resolution-failure.rs
+index 09da124b16..6d0d7df067 100644
+--- a/tests/rustdoc-ui/intra-doc/deny-intra-link-resolution-failure.rs
++++ b/tests/rustdoc-ui/intra-doc/deny-intra-link-resolution-failure.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ /// [v2] //~ ERROR
+diff --git a/tests/rustdoc-ui/intra-doc/disambiguator-mismatch.rs b/tests/rustdoc-ui/intra-doc/disambiguator-mismatch.rs
+index 2d66566119..84f26e4dad 100644
+--- a/tests/rustdoc-ui/intra-doc/disambiguator-mismatch.rs
++++ b/tests/rustdoc-ui/intra-doc/disambiguator-mismatch.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ //~^ NOTE lint level is defined
+ pub enum S {}
+diff --git a/tests/rustdoc-ui/intra-doc/double-anchor.rs b/tests/rustdoc-ui/intra-doc/double-anchor.rs
+index ceb74c25af..ccde1b73ae 100644
+--- a/tests/rustdoc-ui/intra-doc/double-anchor.rs
++++ b/tests/rustdoc-ui/intra-doc/double-anchor.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // regression test for #73264
+ // should only give one error
+diff --git a/tests/rustdoc-ui/intra-doc/email-address-localhost.rs b/tests/rustdoc-ui/intra-doc/email-address-localhost.rs
+index adef39527e..201427e5f6 100644
+--- a/tests/rustdoc-ui/intra-doc/email-address-localhost.rs
++++ b/tests/rustdoc-ui/intra-doc/email-address-localhost.rs
+@@ -1,5 +1,6 @@
+ //@ normalize-stderr-test: "nightly|beta|1\.[0-9][0-9]\.[0-9]" -> "$$CHANNEL"
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ #![deny(warnings)]
+ 
+ //! Email me at <hello@localhost>.
+diff --git a/tests/rustdoc-ui/intra-doc/errors.rs b/tests/rustdoc-ui/intra-doc/errors.rs
+index f37f49c24c..d2ff2fa522 100644
+--- a/tests/rustdoc-ui/intra-doc/errors.rs
++++ b/tests/rustdoc-ui/intra-doc/errors.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ //~^ NOTE lint level is defined
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/extern-crate-load.rs b/tests/rustdoc-ui/intra-doc/extern-crate-load.rs
+index df32f556e7..313132e527 100644
+--- a/tests/rustdoc-ui/intra-doc/extern-crate-load.rs
++++ b/tests/rustdoc-ui/intra-doc/extern-crate-load.rs
+@@ -3,6 +3,7 @@
+ //@ aux-crate:dep2=dep2.rs
+ //@ aux-crate:dep3=dep3.rs
+ //@ aux-crate:dep4=dep4.rs
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ pub trait Trait {
+diff --git a/tests/rustdoc-ui/intra-doc/feature-gate-intra-doc-pointers.rs b/tests/rustdoc-ui/intra-doc/feature-gate-intra-doc-pointers.rs
+index 3cfac942ca..fbc32bb483 100644
+--- a/tests/rustdoc-ui/intra-doc/feature-gate-intra-doc-pointers.rs
++++ b/tests/rustdoc-ui/intra-doc/feature-gate-intra-doc-pointers.rs
+@@ -4,3 +4,4 @@
+ //~^ ERROR: experimental
+ //! [pointer] // This is explicitly allowed
+ //! [reference] // This is explicitly allowed
++//@ compile-flags: -Awarnings
+diff --git a/tests/rustdoc-ui/intra-doc/field-ice.rs b/tests/rustdoc-ui/intra-doc/field-ice.rs
+index c5d501e38d..d88cde11cd 100644
+--- a/tests/rustdoc-ui/intra-doc/field-ice.rs
++++ b/tests/rustdoc-ui/intra-doc/field-ice.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ //~^NOTE the lint level is defined here
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/global-path.rs b/tests/rustdoc-ui/intra-doc/global-path.rs
+index 4064475355..0f024bdf6d 100644
+--- a/tests/rustdoc-ui/intra-doc/global-path.rs
++++ b/tests/rustdoc-ui/intra-doc/global-path.rs
+@@ -1,4 +1,5 @@
+ // Doc link path with empty prefix that resolves to "extern prelude" instead of a module.
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ //@ edition:2018
+diff --git a/tests/rustdoc-ui/intra-doc/html-as-generics-intra-doc.rs b/tests/rustdoc-ui/intra-doc/html-as-generics-intra-doc.rs
+index b5470c859f..4042140e6c 100644
+--- a/tests/rustdoc-ui/intra-doc/html-as-generics-intra-doc.rs
++++ b/tests/rustdoc-ui/intra-doc/html-as-generics-intra-doc.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::invalid_html_tags)]
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/import-inline-merge-module.rs b/tests/rustdoc-ui/intra-doc/import-inline-merge-module.rs
+index 636c3c8de4..dc62f1d7cb 100644
+--- a/tests/rustdoc-ui/intra-doc/import-inline-merge-module.rs
++++ b/tests/rustdoc-ui/intra-doc/import-inline-merge-module.rs
+@@ -3,7 +3,7 @@
+ 
+ //@ check-pass
+ //@ aux-build: inner-crate-doc.rs
+-//@ compile-flags: --extern inner_crate_doc --edition 2018
++//@ compile-flags: --extern inner_crate_doc --edition 2018 -Awarnings
+ 
+ /// Import doc comment [inner_crate_doc]
+ #[doc(inline)]
+diff --git a/tests/rustdoc-ui/intra-doc/import-inline-merge.rs b/tests/rustdoc-ui/intra-doc/import-inline-merge.rs
+index 9307ec23b1..8189994fd0 100644
+--- a/tests/rustdoc-ui/intra-doc/import-inline-merge.rs
++++ b/tests/rustdoc-ui/intra-doc/import-inline-merge.rs
+@@ -1,5 +1,6 @@
+ // Import for `A` is inlined and doc comments on the import and `A` itself are merged.
+ // After the merge they still have correct parent scopes to resolve both `[A]` and `[B]`.
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/incompatible-primitive-disambiguator.rs b/tests/rustdoc-ui/intra-doc/incompatible-primitive-disambiguator.rs
+index 3088bcd465..c0968297fb 100644
+--- a/tests/rustdoc-ui/intra-doc/incompatible-primitive-disambiguator.rs
++++ b/tests/rustdoc-ui/intra-doc/incompatible-primitive-disambiguator.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ //! [static@u8::MIN]
+ //~^ ERROR incompatible link kind
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-10.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-10.rs
+index 23dd8a140b..dfeb399bdf 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-10.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-10.rs
+@@ -14,6 +14,7 @@
+ //   |
+ // 1 | //! [`derive@PartialEq`]
+ //   |       +++++++
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-2.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-2.rs
+index cbe60f746b..a3f830eb1b 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-2.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-2.rs
+@@ -1,4 +1,5 @@
+ // This is ensuring that the UI output for associated items is as expected.
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-3.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-3.rs
+index 7ffd0a40e7..5863430640 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-3.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-3.rs
+@@ -1,5 +1,6 @@
+ // This is ensuring that the UI output for associated items works when it's being documented
+ // from another item.
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::broken_intra_doc_links)]
+ #![allow(nonstandard_style)]
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-4.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-4.rs
+index 537d61364b..d4d76198e9 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-4.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-4.rs
+@@ -1,5 +1,6 @@
+ // This is ensuring that the UI output for associated items works when it's being documented
+ // from another item.
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::broken_intra_doc_links)]
+ #![allow(nonstandard_style)]
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-5.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-5.rs
+index bc28bc5442..39f9c3fb78 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-5.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-5.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ #![allow(nonstandard_style)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-6.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-6.rs
+index 8fde74d0dd..2d2540d8cd 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-6.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-6.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ #![allow(nonstandard_style)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-7.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-7.rs
+index 6e99f4365a..14e15eea2a 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-7.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-7.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ #![allow(nonstandard_style)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-8.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-8.rs
+index 2f8ee1566b..69181b969f 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-8.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-8.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ #![allow(nonstandard_style)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-9.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-9.rs
+index e4c8bcec2d..2319167e3e 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-9.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items-9.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![deny(warnings)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items.rs b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items.rs
+index 0a393e26d6..abead8e4a0 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-108653-associated-items.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-108653-associated-items.rs
+@@ -1,4 +1,5 @@
+ // This is ensuring that the UI output for associated items is as expected.
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/issue-110495-suffix-with-space.rs b/tests/rustdoc-ui/intra-doc/issue-110495-suffix-with-space.rs
+index ef9c56f759..88a17083b7 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-110495-suffix-with-space.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-110495-suffix-with-space.rs
+@@ -1,4 +1,5 @@
+ // this test used to ICE
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ //! [Clone ()]. //~ ERROR unresolved
+ //! [Clone !]. //~ ERROR incompatible
+diff --git a/tests/rustdoc-ui/intra-doc/issue-111189-resolution-ice.rs b/tests/rustdoc-ui/intra-doc/issue-111189-resolution-ice.rs
+index 4e74278dc7..f01b547fb0 100644
+--- a/tests/rustdoc-ui/intra-doc/issue-111189-resolution-ice.rs
++++ b/tests/rustdoc-ui/intra-doc/issue-111189-resolution-ice.rs
+@@ -1,5 +1,6 @@
+ // Regression test for <https://github.com/rust-lang/rust/issues/111189>.
+ // This test ensures that it doesn't crash.
++//@ compile-flags: -Awarnings
+ 
+ #![deny(warnings)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/macro-rules-error.rs b/tests/rustdoc-ui/intra-doc/macro-rules-error.rs
+index 0c9457c69d..712d964214 100644
+--- a/tests/rustdoc-ui/intra-doc/macro-rules-error.rs
++++ b/tests/rustdoc-ui/intra-doc/macro-rules-error.rs
+@@ -1,6 +1,6 @@
+ // `macro_rules` scopes are respected during doc link resolution.
+ 
+-//@ compile-flags: --document-private-items
++//@ compile-flags: --document-private-items -Awarnings
+ 
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/macro-rules.rs b/tests/rustdoc-ui/intra-doc/macro-rules.rs
+index a82a936fe0..f3a2709e0a 100644
+--- a/tests/rustdoc-ui/intra-doc/macro-rules.rs
++++ b/tests/rustdoc-ui/intra-doc/macro-rules.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ #![allow(rustdoc::private_intra_doc_links)]
+ 
+ macro_rules! foo {
+diff --git a/tests/rustdoc-ui/intra-doc/malformed-generics.rs b/tests/rustdoc-ui/intra-doc/malformed-generics.rs
+index 161625ed28..4a12b1364f 100644
+--- a/tests/rustdoc-ui/intra-doc/malformed-generics.rs
++++ b/tests/rustdoc-ui/intra-doc/malformed-generics.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ //! [Vec<] //~ ERROR
+diff --git a/tests/rustdoc-ui/intra-doc/non-path-primitives.rs b/tests/rustdoc-ui/intra-doc/non-path-primitives.rs
+index 587cbad684..94eb97cc7a 100644
+--- a/tests/rustdoc-ui/intra-doc/non-path-primitives.rs
++++ b/tests/rustdoc-ui/intra-doc/non-path-primitives.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ #![feature(intra_doc_pointers)]
+ // These are links that could reasonably expected to work, but don't.
+diff --git a/tests/rustdoc-ui/intra-doc/pointer-reexports-allowed.rs b/tests/rustdoc-ui/intra-doc/pointer-reexports-allowed.rs
+index 567524438c..edcd10ac87 100644
+--- a/tests/rustdoc-ui/intra-doc/pointer-reexports-allowed.rs
++++ b/tests/rustdoc-ui/intra-doc/pointer-reexports-allowed.rs
+@@ -1,4 +1,5 @@
+ //@ aux-build:pointer-reexports-allowed.rs
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ extern crate inner;
+ pub use inner::foo;
+diff --git a/tests/rustdoc-ui/intra-doc/prim-conflict.rs b/tests/rustdoc-ui/intra-doc/prim-conflict.rs
+index e87ce095cd..6c7266ccfe 100644
+--- a/tests/rustdoc-ui/intra-doc/prim-conflict.rs
++++ b/tests/rustdoc-ui/intra-doc/prim-conflict.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ //~^ NOTE lint level is defined
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/private-from-crate-level.rs b/tests/rustdoc-ui/intra-doc/private-from-crate-level.rs
+index 0ec11d8617..30122799c3 100644
+--- a/tests/rustdoc-ui/intra-doc/private-from-crate-level.rs
++++ b/tests/rustdoc-ui/intra-doc/private-from-crate-level.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ //! [my_module]
+ //~^ WARN public documentation for `private_from_crate_level` links to private item `my_module`
+diff --git a/tests/rustdoc-ui/intra-doc/proc-macro-doc.rs b/tests/rustdoc-ui/intra-doc/proc-macro-doc.rs
+index 5d6819273b..62921332c2 100644
+--- a/tests/rustdoc-ui/intra-doc/proc-macro-doc.rs
++++ b/tests/rustdoc-ui/intra-doc/proc-macro-doc.rs
+@@ -1,7 +1,7 @@
+ //@ check-pass
+ //@ force-host
+ //@ no-prefer-dynamic
+-//@ compile-flags: --crate-type proc-macro
++//@ compile-flags: --crate-type proc-macro -Awarnings
+ 
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/pub-export-lint.rs b/tests/rustdoc-ui/intra-doc/pub-export-lint.rs
+index f2e66b77bf..29d46da39b 100644
+--- a/tests/rustdoc-ui/intra-doc/pub-export-lint.rs
++++ b/tests/rustdoc-ui/intra-doc/pub-export-lint.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ /// [aloha]
+diff --git a/tests/rustdoc-ui/intra-doc/reachable-non-exported.rs b/tests/rustdoc-ui/intra-doc/reachable-non-exported.rs
+index 5eabf3a09a..0f1a9c4ab3 100644
+--- a/tests/rustdoc-ui/intra-doc/reachable-non-exported.rs
++++ b/tests/rustdoc-ui/intra-doc/reachable-non-exported.rs
+@@ -1,5 +1,6 @@
+ // The structure is reachable, but not exported, so rustdoc
+ // doesn't attempt to request doc link resolutions on it.
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/reference-link-reports-error-once.rs b/tests/rustdoc-ui/intra-doc/reference-link-reports-error-once.rs
+index 71bd2c522f..abdbe97bf4 100644
+--- a/tests/rustdoc-ui/intra-doc/reference-link-reports-error-once.rs
++++ b/tests/rustdoc-ui/intra-doc/reference-link-reports-error-once.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ /// Links to [a] [link][a]
+diff --git a/tests/rustdoc-ui/intra-doc/reference-links.rs b/tests/rustdoc-ui/intra-doc/reference-links.rs
+index e81e034465..5290453906 100644
+--- a/tests/rustdoc-ui/intra-doc/reference-links.rs
++++ b/tests/rustdoc-ui/intra-doc/reference-links.rs
+@@ -1,4 +1,5 @@
+ // Test that errors point to the reference, not to the title text.
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ //! Links to [a] [link][a]
+ //!
+diff --git a/tests/rustdoc-ui/intra-doc/span-ice-55723.rs b/tests/rustdoc-ui/intra-doc/span-ice-55723.rs
+index 041ec29325..69f7520e9b 100644
+--- a/tests/rustdoc-ui/intra-doc/span-ice-55723.rs
++++ b/tests/rustdoc-ui/intra-doc/span-ice-55723.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ // An error in calculating spans while reporting intra-doc link resolution errors caused rustdoc to
+diff --git a/tests/rustdoc-ui/intra-doc/through-proc-macro.rs b/tests/rustdoc-ui/intra-doc/through-proc-macro.rs
+index beec9e2833..83cb2f0225 100644
+--- a/tests/rustdoc-ui/intra-doc/through-proc-macro.rs
++++ b/tests/rustdoc-ui/intra-doc/through-proc-macro.rs
+@@ -1,6 +1,7 @@
+ //@ check-pass
+ //@ aux-build:through-proc-macro-aux.rs
+ //@ build-aux-docs
++//@ compile-flags: -Awarnings
+ 
+ // Ensure rustdoc doesn't panic on this code.
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/unknown-disambiguator.rs b/tests/rustdoc-ui/intra-doc/unknown-disambiguator.rs
+index 68b818e32b..3a0d02bd1a 100644
+--- a/tests/rustdoc-ui/intra-doc/unknown-disambiguator.rs
++++ b/tests/rustdoc-ui/intra-doc/unknown-disambiguator.rs
+@@ -1,4 +1,5 @@
+ //@ normalize-stderr-test: "nightly|beta|1\.[0-9][0-9]\.[0-9]" -> "$$CHANNEL"
++//@ compile-flags: -Awarnings
+ #![deny(warnings)]
+ 
+ //! Linking to [foo@banana] and [`bar@banana!()`].
+diff --git a/tests/rustdoc-ui/intra-doc/unresolved-import-recovery.rs b/tests/rustdoc-ui/intra-doc/unresolved-import-recovery.rs
+index c71e5bee12..42b0cc8f8e 100644
+--- a/tests/rustdoc-ui/intra-doc/unresolved-import-recovery.rs
++++ b/tests/rustdoc-ui/intra-doc/unresolved-import-recovery.rs
+@@ -1,4 +1,5 @@
+ // Regression test for issue #95879.
++//@ compile-flags: -Awarnings
+ 
+ use unresolved_crate::module::Name; //~ ERROR failed to resolve
+ 
+diff --git a/tests/rustdoc-ui/intra-doc/unused-extern-crate.rs b/tests/rustdoc-ui/intra-doc/unused-extern-crate.rs
+index f1f30c2a93..6bf92b016a 100644
+--- a/tests/rustdoc-ui/intra-doc/unused-extern-crate.rs
++++ b/tests/rustdoc-ui/intra-doc/unused-extern-crate.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --extern zip=whatever.rlib
++//@ compile-flags: --extern zip=whatever.rlib -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ /// See [zip] crate.
+ //~^ ERROR unresolved
+diff --git a/tests/rustdoc-ui/intra-doc/warning-crlf.rs b/tests/rustdoc-ui/intra-doc/warning-crlf.rs
+index 9d3a4673c9..5b3a86bda2 100644
+--- a/tests/rustdoc-ui/intra-doc/warning-crlf.rs
++++ b/tests/rustdoc-ui/intra-doc/warning-crlf.rs
+@@ -1,5 +1,6 @@
+ // ignore-tidy-cr
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // This file checks the spans of intra-link warnings in a file with CRLF line endings. The
+ // .gitattributes file in this directory should enforce it.
+diff --git a/tests/rustdoc-ui/intra-doc/warning.rs b/tests/rustdoc-ui/intra-doc/warning.rs
+index ed51b2fa41..3909d86154 100644
+--- a/tests/rustdoc-ui/intra-doc/warning.rs
++++ b/tests/rustdoc-ui/intra-doc/warning.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+        //! Test with [Foo::baz], [Bar::foo], ...
+ //~^ WARNING `Foo::baz`
+diff --git a/tests/rustdoc-ui/intra-doc/weird-syntax.rs b/tests/rustdoc-ui/intra-doc/weird-syntax.rs
+index ca18842fb2..fd1ef82b9b 100644
+--- a/tests/rustdoc-ui/intra-doc/weird-syntax.rs
++++ b/tests/rustdoc-ui/intra-doc/weird-syntax.rs
+@@ -1,5 +1,6 @@
+ // Many examples are from
+ // https://github.com/rust-lang/rust/issues/110111#issuecomment-1517800781
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::broken_intra_doc_links)]
+ 
+ //! This test case is closely linked to [raphlinus/pulldown-cmark#441], getting offsets of
+diff --git a/tests/rustdoc-ui/invalid-cfg.rs b/tests/rustdoc-ui/invalid-cfg.rs
+index d237b8605c..18fbf416d5 100644
+--- a/tests/rustdoc-ui/invalid-cfg.rs
++++ b/tests/rustdoc-ui/invalid-cfg.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(doc_cfg)]
+ #[doc(cfg = "x")] //~ ERROR not followed by parentheses
+ #[doc(cfg(x, y))] //~ ERROR multiple `cfg` predicates
+diff --git a/tests/rustdoc-ui/invalid-keyword.rs b/tests/rustdoc-ui/invalid-keyword.rs
+index 2d70471c85..a29abb0931 100644
+--- a/tests/rustdoc-ui/invalid-keyword.rs
++++ b/tests/rustdoc-ui/invalid-keyword.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(rustdoc_internals)]
+ 
+ #[doc(keyword = "foo df")] //~ ERROR
+diff --git a/tests/rustdoc-ui/invalid-redundant-explicit-link.rs b/tests/rustdoc-ui/invalid-redundant-explicit-link.rs
+index 99ac1d82aa..65a0047b46 100644
+--- a/tests/rustdoc-ui/invalid-redundant-explicit-link.rs
++++ b/tests/rustdoc-ui/invalid-redundant-explicit-link.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // Regression test for <https://github.com/rust-lang/rust/issues/123158>. It
+ // should not emit any warning.
+diff --git a/tests/rustdoc-ui/invalid-syntax.rs b/tests/rustdoc-ui/invalid-syntax.rs
+index 42469da837..26effea1de 100644
+--- a/tests/rustdoc-ui/invalid-syntax.rs
++++ b/tests/rustdoc-ui/invalid-syntax.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ /// ```
+ /// \__________pkt->size___________/          \_result->size_/ \__pkt->size__/
+diff --git a/tests/rustdoc-ui/invalid_associated_const.rs b/tests/rustdoc-ui/invalid_associated_const.rs
+index f93834268f..c52a9474b3 100644
+--- a/tests/rustdoc-ui/invalid_associated_const.rs
++++ b/tests/rustdoc-ui/invalid_associated_const.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(associated_const_equality)]
+ 
+ trait T {
+diff --git a/tests/rustdoc-ui/invalid_const_in_lifetime_position.rs b/tests/rustdoc-ui/invalid_const_in_lifetime_position.rs
+index 07fc239a8f..38c18e9675 100644
+--- a/tests/rustdoc-ui/invalid_const_in_lifetime_position.rs
++++ b/tests/rustdoc-ui/invalid_const_in_lifetime_position.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ trait X {
+     type Y<'a>;
+ }
+diff --git a/tests/rustdoc-ui/invalid_infered_static_and_const.rs b/tests/rustdoc-ui/invalid_infered_static_and_const.rs
+index 3f8e68dc02..916c51d083 100644
+--- a/tests/rustdoc-ui/invalid_infered_static_and_const.rs
++++ b/tests/rustdoc-ui/invalid_infered_static_and_const.rs
+@@ -1,2 +1,3 @@
++//@ compile-flags: -Awarnings
+ const FOO: dyn Fn() -> _ = ""; //~ ERROR E0121
+ static BOO: dyn Fn() -> _ = ""; //~ ERROR E0121
+diff --git a/tests/rustdoc-ui/issue-102467.rs b/tests/rustdoc-ui/issue-102467.rs
+index d9bd48103d..3e224d4266 100644
+--- a/tests/rustdoc-ui/issue-102467.rs
++++ b/tests/rustdoc-ui/issue-102467.rs
+@@ -1,5 +1,6 @@
+ // Regression test for <https://github.com/rust-lang/rust/issues/102467>.
+ // It ensures that the expected error is displayed.
++//@ compile-flags: -Awarnings
+ 
+ #![feature(associated_const_equality)]
+ 
+diff --git a/tests/rustdoc-ui/issue-110629-private-type-cycle-dyn.rs b/tests/rustdoc-ui/issue-110629-private-type-cycle-dyn.rs
+index c920a815fd..61c83cd645 100644
+--- a/tests/rustdoc-ui/issue-110629-private-type-cycle-dyn.rs
++++ b/tests/rustdoc-ui/issue-110629-private-type-cycle-dyn.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ type Bar<'a, 'b> = Box<dyn PartialEq<Bar<'a, 'b>>>;
+ //~^ ERROR cycle detected when expanding type alias
+ 
+diff --git a/tests/rustdoc-ui/issue-110629-private-type-cycle.rs b/tests/rustdoc-ui/issue-110629-private-type-cycle.rs
+index b31b9d03e7..f9098d25f6 100644
+--- a/tests/rustdoc-ui/issue-110629-private-type-cycle.rs
++++ b/tests/rustdoc-ui/issue-110629-private-type-cycle.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![feature(type_alias_impl_trait)]
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-101076.rs b/tests/rustdoc-ui/issues/issue-101076.rs
+index f9b93c408f..80e72e43f1 100644
+--- a/tests/rustdoc-ui/issues/issue-101076.rs
++++ b/tests/rustdoc-ui/issues/issue-101076.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ const _: () = {
+     #[macro_export]
+diff --git a/tests/rustdoc-ui/issues/issue-102986.rs b/tests/rustdoc-ui/issues/issue-102986.rs
+index 001784ac28..f9ec165f8a 100644
+--- a/tests/rustdoc-ui/issues/issue-102986.rs
++++ b/tests/rustdoc-ui/issues/issue-102986.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ struct Struct {
+     y: (typeof("hey"),),
+     //~^ `typeof` is a reserved keyword but unimplemented
+diff --git a/tests/rustdoc-ui/issues/issue-103997.rs b/tests/rustdoc-ui/issues/issue-103997.rs
+index ebd1d2e444..f3c12fc3dd 100644
+--- a/tests/rustdoc-ui/issues/issue-103997.rs
++++ b/tests/rustdoc-ui/issues/issue-103997.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ pub fn foo() {}
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-105334.rs b/tests/rustdoc-ui/issues/issue-105334.rs
+index ee1adc6a02..d22c4a4e2f 100644
+--- a/tests/rustdoc-ui/issues/issue-105334.rs
++++ b/tests/rustdoc-ui/issues/issue-105334.rs
+@@ -1,2 +1,3 @@
++//@ compile-flags: -Awarnings
+ impl Vec< br##"*.."## > {}
+ //~^ ERROR
+diff --git a/tests/rustdoc-ui/issues/issue-105737.rs b/tests/rustdoc-ui/issues/issue-105737.rs
+index 154f069d8f..be645ab5a8 100644
+--- a/tests/rustdoc-ui/issues/issue-105737.rs
++++ b/tests/rustdoc-ui/issues/issue-105737.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ impl Vec<lol> {}
+ //~^ ERROR
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-105742.rs b/tests/rustdoc-ui/issues/issue-105742.rs
+index bd8ec4e8b5..4f410728f6 100644
+--- a/tests/rustdoc-ui/issues/issue-105742.rs
++++ b/tests/rustdoc-ui/issues/issue-105742.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: -Znormalize-docs
++//@ compile-flags: -Znormalize-docs -Awarnings
+ use std::ops::Index;
+ 
+ pub fn next<'a, T>(s: &'a mut dyn SVec<Item = T, Output = T>) {
+diff --git a/tests/rustdoc-ui/issues/issue-106213.rs b/tests/rustdoc-ui/issues/issue-106213.rs
+index 5c3a839025..49d98744fe 100644
+--- a/tests/rustdoc-ui/issues/issue-106213.rs
++++ b/tests/rustdoc-ui/issues/issue-106213.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --document-private-items
++//@ compile-flags: --document-private-items -Awarnings
+ //@ edition:2021
+ 
+ fn use_avx() -> dyn  {
+diff --git a/tests/rustdoc-ui/issues/issue-106226.rs b/tests/rustdoc-ui/issues/issue-106226.rs
+index 71b497a9ad..f46320d76d 100644
+--- a/tests/rustdoc-ui/issues/issue-106226.rs
++++ b/tests/rustdoc-ui/issues/issue-106226.rs
+@@ -1,3 +1,4 @@
+ // This is a regression test for <https://github.com/rust-lang/rust/issues/106226>.
++//@ compile-flags: -Awarnings
+ type F = [_; ()];
+ //~^ ERROR
+diff --git a/tests/rustdoc-ui/issues/issue-107918.rs b/tests/rustdoc-ui/issues/issue-107918.rs
+index 19d53f84cb..46e798e2ea 100644
+--- a/tests/rustdoc-ui/issues/issue-107918.rs
++++ b/tests/rustdoc-ui/issues/issue-107918.rs
+@@ -1,5 +1,5 @@
+ //@ aux-build:panic-handler.rs
+-//@ compile-flags: --document-private-items
++//@ compile-flags: --document-private-items -Awarnings
+ //@ build-pass
+ //@ only-linux
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-109282-import-inline-merge.rs b/tests/rustdoc-ui/issues/issue-109282-import-inline-merge.rs
+index e4486ab26f..1820ee2164 100644
+--- a/tests/rustdoc-ui/issues/issue-109282-import-inline-merge.rs
++++ b/tests/rustdoc-ui/issues/issue-109282-import-inline-merge.rs
+@@ -1,6 +1,7 @@
+ // Regression test for <https://github.com/rust-lang/rust/issues/109282>.
+ // Import for `ValueEnum` is inlined and doc comments on the import and `ValueEnum` itself are
+ // merged. After the merge they still have correct parent scopes to resolve both `[ValueEnum]`.
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-110900.rs b/tests/rustdoc-ui/issues/issue-110900.rs
+index 5a89616708..e346732a1a 100644
+--- a/tests/rustdoc-ui/issues/issue-110900.rs
++++ b/tests/rustdoc-ui/issues/issue-110900.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![crate_type="lib"]
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-120444-1.rs b/tests/rustdoc-ui/issues/issue-120444-1.rs
+index 51f2b98fb3..b072215934 100644
+--- a/tests/rustdoc-ui/issues/issue-120444-1.rs
++++ b/tests/rustdoc-ui/issues/issue-120444-1.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --document-private-items
++//@ compile-flags: --document-private-items -Awarnings
+ 
+ #![deny(rustdoc::redundant_explicit_links)]
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-120444-2.rs b/tests/rustdoc-ui/issues/issue-120444-2.rs
+index f0e842fd85..b8219dafc3 100644
+--- a/tests/rustdoc-ui/issues/issue-120444-2.rs
++++ b/tests/rustdoc-ui/issues/issue-120444-2.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --document-private-items
++//@ compile-flags: --document-private-items -Awarnings
+ 
+ #![deny(rustdoc::redundant_explicit_links)]
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-58473-2.rs b/tests/rustdoc-ui/issues/issue-58473-2.rs
+index 1653da0d13..0a6b1ed236 100644
+--- a/tests/rustdoc-ui/issues/issue-58473-2.rs
++++ b/tests/rustdoc-ui/issues/issue-58473-2.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::private_doc_tests)]
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-58473.rs b/tests/rustdoc-ui/issues/issue-58473.rs
+index 2d3772ed75..66e35134e3 100644
+--- a/tests/rustdoc-ui/issues/issue-58473.rs
++++ b/tests/rustdoc-ui/issues/issue-58473.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ pub trait Foo {
+     /**
+diff --git a/tests/rustdoc-ui/issues/issue-61592-2.rs b/tests/rustdoc-ui/issues/issue-61592-2.rs
+index 3553f51ed9..2e156355b2 100644
+--- a/tests/rustdoc-ui/issues/issue-61592-2.rs
++++ b/tests/rustdoc-ui/issues/issue-61592-2.rs
+@@ -1,4 +1,5 @@
+ //@ aux-build:issue-61592.rs
++//@ compile-flags: -Awarnings
+ 
+ extern crate foo;
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-61592.rs b/tests/rustdoc-ui/issues/issue-61592.rs
+index 4721f7d35c..8b307141c6 100644
+--- a/tests/rustdoc-ui/issues/issue-61592.rs
++++ b/tests/rustdoc-ui/issues/issue-61592.rs
+@@ -1,4 +1,5 @@
+ //@ aux-build:issue-61592.rs
++//@ compile-flags: -Awarnings
+ 
+ extern crate foo;
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-61732.rs b/tests/rustdoc-ui/issues/issue-61732.rs
+index 4bd8efeaa3..418a08634b 100644
+--- a/tests/rustdoc-ui/issues/issue-61732.rs
++++ b/tests/rustdoc-ui/issues/issue-61732.rs
+@@ -1,4 +1,5 @@
+ // This previously triggered an ICE.
++//@ compile-flags: -Awarnings
+ 
+ pub(in crate::r#mod) fn main() {}
+ //~^ ERROR failed to resolve: maybe a missing crate `r#mod`
+diff --git a/tests/rustdoc-ui/issues/issue-79465.rs b/tests/rustdoc-ui/issues/issue-79465.rs
+index e50f3995b8..180023904b 100644
+--- a/tests/rustdoc-ui/issues/issue-79465.rs
++++ b/tests/rustdoc-ui/issues/issue-79465.rs
+@@ -1,2 +1,3 @@
++//@ compile-flags: -Awarnings
+ pub fn f1<T>(x: T::A) {}
+ //~^ ERROR
+diff --git a/tests/rustdoc-ui/issues/issue-79467.rs b/tests/rustdoc-ui/issues/issue-79467.rs
+index eb0b9b3807..e256952e3f 100644
+--- a/tests/rustdoc-ui/issues/issue-79467.rs
++++ b/tests/rustdoc-ui/issues/issue-79467.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ fn g()
+ where
+     'static: 'static,
+diff --git a/tests/rustdoc-ui/issues/issue-79494.rs b/tests/rustdoc-ui/issues/issue-79494.rs
+index 7a1890c442..d421be1973 100644
+--- a/tests/rustdoc-ui/issues/issue-79494.rs
++++ b/tests/rustdoc-ui/issues/issue-79494.rs
+@@ -1,4 +1,5 @@
+ //@ only-x86_64-unknown-linux-gnu
++//@ compile-flags: -Awarnings
+ 
+ #![feature(const_transmute)]
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-80992.rs b/tests/rustdoc-ui/issues/issue-80992.rs
+index 31cc8b78ec..a4cedf7fd3 100644
+--- a/tests/rustdoc-ui/issues/issue-80992.rs
++++ b/tests/rustdoc-ui/issues/issue-80992.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags:--test
++//@ compile-flags:--test -Awarnings
+ //@ normalize-stdout-test: "tests/rustdoc-ui/issues" -> "$$DIR"
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/issues/issue-81662-shortness.rs b/tests/rustdoc-ui/issues/issue-81662-shortness.rs
+index 02207d2a73..ff33bef3e3 100644
+--- a/tests/rustdoc-ui/issues/issue-81662-shortness.rs
++++ b/tests/rustdoc-ui/issues/issue-81662-shortness.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags:--test --error-format=short
++//@ compile-flags:--test --error-format=short -Awarnings
+ //@ check-stdout
+ //@ error-pattern:cannot find function `foo` in this scope
+ //@ normalize-stdout-test: "tests/rustdoc-ui/issues" -> "$$DIR"
+diff --git a/tests/rustdoc-ui/issues/issue-83883-describe-lints.rs b/tests/rustdoc-ui/issues/issue-83883-describe-lints.rs
+index a7b1c734d7..1396200b40 100644
+--- a/tests/rustdoc-ui/issues/issue-83883-describe-lints.rs
++++ b/tests/rustdoc-ui/issues/issue-83883-describe-lints.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: -W help
++//@ compile-flags: -W help -Awarnings
+ //@ check-pass
+ //@ check-stdout
+ //@ error-pattern:Lint checks provided
+diff --git a/tests/rustdoc-ui/issues/issue-91134.rs b/tests/rustdoc-ui/issues/issue-91134.rs
+index 6b1fec957e..a4282df10a 100644
+--- a/tests/rustdoc-ui/issues/issue-91134.rs
++++ b/tests/rustdoc-ui/issues/issue-91134.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --test --crate-name=empty_fn --extern=empty_fn --test-args=--test-threads=1
++//@ compile-flags: --test --crate-name=empty_fn --extern=empty_fn --test-args=--test-threads=1 -Awarnings
+ //@ aux-build:empty-fn.rs
+ //@ check-pass
+ //@ normalize-stdout-test: "tests/rustdoc-ui/issues" -> "$$DIR"
+diff --git a/tests/rustdoc-ui/issues/issue-96287.rs b/tests/rustdoc-ui/issues/issue-96287.rs
+index b490c2fc03..f296ca6a43 100644
+--- a/tests/rustdoc-ui/issues/issue-96287.rs
++++ b/tests/rustdoc-ui/issues/issue-96287.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(type_alias_impl_trait)]
+ 
+ pub trait TraitWithAssoc {
+diff --git a/tests/rustdoc-ui/issues/issue-98690.rs b/tests/rustdoc-ui/issues/issue-98690.rs
+index 01708f3f64..843c6dfd5d 100644
+--- a/tests/rustdoc-ui/issues/issue-98690.rs
++++ b/tests/rustdoc-ui/issues/issue-98690.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --test --persist-doctests /../../ -Z unstable-options
++//@ compile-flags: --test --persist-doctests /../../ -Z unstable-options -Awarnings
+ //@ failure-status: 101
+ //@ only-linux
+ 
+diff --git a/tests/rustdoc-ui/lints/bare-urls.rs b/tests/rustdoc-ui/lints/bare-urls.rs
+index 75f42b78ff..3e0b898c89 100644
+--- a/tests/rustdoc-ui/lints/bare-urls.rs
++++ b/tests/rustdoc-ui/lints/bare-urls.rs
+@@ -1,4 +1,5 @@
+ //@ run-rustfix
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::bare_urls)]
+ 
+diff --git a/tests/rustdoc-ui/lints/check-attr.rs b/tests/rustdoc-ui/lints/check-attr.rs
+index 3c06e6c076..d7567ece46 100644
+--- a/tests/rustdoc-ui/lints/check-attr.rs
++++ b/tests/rustdoc-ui/lints/check-attr.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::invalid_codeblock_attributes)]
+ 
+ /// foo
+diff --git a/tests/rustdoc-ui/lints/check-fail.rs b/tests/rustdoc-ui/lints/check-fail.rs
+index 903cbdb532..1e8f2df78d 100644
+--- a/tests/rustdoc-ui/lints/check-fail.rs
++++ b/tests/rustdoc-ui/lints/check-fail.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: -Z unstable-options --check
++//@ compile-flags: -Z unstable-options --check -Awarnings
+ 
+ #![feature(rustdoc_missing_doc_code_examples)]
+ #![deny(missing_docs)]
+diff --git a/tests/rustdoc-ui/lints/check.rs b/tests/rustdoc-ui/lints/check.rs
+index 391ba51707..b2b00c2cff 100644
+--- a/tests/rustdoc-ui/lints/check.rs
++++ b/tests/rustdoc-ui/lints/check.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags: -Z unstable-options --check
++//@ compile-flags: -Z unstable-options --check -Awarnings
+ //@ normalize-stderr-test: "nightly|beta|1\.[0-9][0-9]\.[0-9]" -> "$$CHANNEL"
+ 
+ #![feature(rustdoc_missing_doc_code_examples)]
+diff --git a/tests/rustdoc-ui/lints/deny-missing-docs-crate.rs b/tests/rustdoc-ui/lints/deny-missing-docs-crate.rs
+index b74eba3f66..56e3521420 100644
+--- a/tests/rustdoc-ui/lints/deny-missing-docs-crate.rs
++++ b/tests/rustdoc-ui/lints/deny-missing-docs-crate.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(missing_docs)] //~ ERROR
+ 
+ pub struct Foo; //~ ERROR
+diff --git a/tests/rustdoc-ui/lints/deny-missing-docs-macro.rs b/tests/rustdoc-ui/lints/deny-missing-docs-macro.rs
+index b1c1253176..c020bbfb2a 100644
+--- a/tests/rustdoc-ui/lints/deny-missing-docs-macro.rs
++++ b/tests/rustdoc-ui/lints/deny-missing-docs-macro.rs
+@@ -1,4 +1,5 @@
+ //! foo
++//@ compile-flags: -Awarnings
+ 
+ #![deny(missing_docs)]
+ 
+diff --git a/tests/rustdoc-ui/lints/doc-attr.rs b/tests/rustdoc-ui/lints/doc-attr.rs
+index 666aeb55cb..bf35f25cfe 100644
+--- a/tests/rustdoc-ui/lints/doc-attr.rs
++++ b/tests/rustdoc-ui/lints/doc-attr.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![crate_type = "lib"]
+ #![doc(as_ptr)]
+ //~^ ERROR unknown `doc` attribute
+diff --git a/tests/rustdoc-ui/lints/doc-spotlight.rs b/tests/rustdoc-ui/lints/doc-spotlight.rs
+index c1f90dd442..9a37992ea6 100644
+--- a/tests/rustdoc-ui/lints/doc-spotlight.rs
++++ b/tests/rustdoc-ui/lints/doc-spotlight.rs
+@@ -1,4 +1,5 @@
+ //@ run-rustfix
++//@ compile-flags: -Awarnings
+ #![feature(doc_notable_trait)]
+ 
+ #[doc(spotlight)]
+diff --git a/tests/rustdoc-ui/lints/doc-without-codeblock.rs b/tests/rustdoc-ui/lints/doc-without-codeblock.rs
+index 86d7c83d33..8e27013a1b 100644
+--- a/tests/rustdoc-ui/lints/doc-without-codeblock.rs
++++ b/tests/rustdoc-ui/lints/doc-without-codeblock.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(rustdoc_missing_doc_code_examples)] //~ ERROR missing code example in this documentation
+ #![deny(rustdoc::missing_doc_code_examples)]
+ 
+diff --git a/tests/rustdoc-ui/lints/doc_cfg_hide.rs b/tests/rustdoc-ui/lints/doc_cfg_hide.rs
+index 9a8bce2a92..e1cc884bb4 100644
+--- a/tests/rustdoc-ui/lints/doc_cfg_hide.rs
++++ b/tests/rustdoc-ui/lints/doc_cfg_hide.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(doc_cfg_hide)]
+ 
+ #![doc(cfg_hide = "test")] //~ ERROR
+diff --git a/tests/rustdoc-ui/lints/expect-tool-lint-rfc-2383.rs b/tests/rustdoc-ui/lints/expect-tool-lint-rfc-2383.rs
+index 87e6aa0c25..de5b01e97d 100644
+--- a/tests/rustdoc-ui/lints/expect-tool-lint-rfc-2383.rs
++++ b/tests/rustdoc-ui/lints/expect-tool-lint-rfc-2383.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ //! This file tests the `#[expect]` attribute implementation for tool lints. The same
+ //! file is used to test clippy and rustdoc. Any changes to this file should be synced
+diff --git a/tests/rustdoc-ui/lints/feature-gate-rustdoc_missing_doc_code_examples.rs b/tests/rustdoc-ui/lints/feature-gate-rustdoc_missing_doc_code_examples.rs
+index 46e337cf2b..aced5f58b7 100644
+--- a/tests/rustdoc-ui/lints/feature-gate-rustdoc_missing_doc_code_examples.rs
++++ b/tests/rustdoc-ui/lints/feature-gate-rustdoc_missing_doc_code_examples.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: -Zdeduplicate-diagnostics=yes
++//@ compile-flags: -Zdeduplicate-diagnostics=yes -Awarnings
+ #![deny(unknown_lints)]
+ //~^ NOTE defined here
+ #![allow(rustdoc::missing_doc_code_examples)]
+diff --git a/tests/rustdoc-ui/lints/inline-doc-link.rs b/tests/rustdoc-ui/lints/inline-doc-link.rs
+index 0792bc38af..314a5fe04b 100644
+--- a/tests/rustdoc-ui/lints/inline-doc-link.rs
++++ b/tests/rustdoc-ui/lints/inline-doc-link.rs
+@@ -1,4 +1,5 @@
+ // Regression test for <https://github.com/rust-lang/rust/pull/113167>
++//@ compile-flags: -Awarnings
+ 
+ //@ check-pass
+ #![deny(rustdoc::redundant_explicit_links)]
+diff --git a/tests/rustdoc-ui/lints/invalid-doc-attr.rs b/tests/rustdoc-ui/lints/invalid-doc-attr.rs
+index e1cc08ca24..2cdb5c64a1 100644
+--- a/tests/rustdoc-ui/lints/invalid-doc-attr.rs
++++ b/tests/rustdoc-ui/lints/invalid-doc-attr.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![crate_type = "lib"]
+ #![feature(doc_masked)]
+ 
+diff --git a/tests/rustdoc-ui/lints/invalid-html-self-closing-tag.rs b/tests/rustdoc-ui/lints/invalid-html-self-closing-tag.rs
+index d973a53cbc..1d3805bdf1 100644
+--- a/tests/rustdoc-ui/lints/invalid-html-self-closing-tag.rs
++++ b/tests/rustdoc-ui/lints/invalid-html-self-closing-tag.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::invalid_html_tags)]
+ 
+ /// <p/>
+diff --git a/tests/rustdoc-ui/lints/invalid-html-tags.rs b/tests/rustdoc-ui/lints/invalid-html-tags.rs
+index 317f1fd1d4..f4133384d8 100644
+--- a/tests/rustdoc-ui/lints/invalid-html-tags.rs
++++ b/tests/rustdoc-ui/lints/invalid-html-tags.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::invalid_html_tags)]
+ 
+ //! <p>💩<p>
+diff --git a/tests/rustdoc-ui/lints/lint-group.rs b/tests/rustdoc-ui/lints/lint-group.rs
+index ad88157f64..8a00fc55c6 100644
+--- a/tests/rustdoc-ui/lints/lint-group.rs
++++ b/tests/rustdoc-ui/lints/lint-group.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(rustdoc_missing_doc_code_examples)]
+ 
+ //! Documenting the kinds of lints emitted by rustdoc.
+diff --git a/tests/rustdoc-ui/lints/lint-missing-doc-code-example.rs b/tests/rustdoc-ui/lints/lint-missing-doc-code-example.rs
+index 40f35728d7..d8782c891a 100644
+--- a/tests/rustdoc-ui/lints/lint-missing-doc-code-example.rs
++++ b/tests/rustdoc-ui/lints/lint-missing-doc-code-example.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(rustdoc_missing_doc_code_examples)]
+ #![deny(missing_docs)]
+ #![deny(rustdoc::missing_doc_code_examples)]
+diff --git a/tests/rustdoc-ui/lints/no-crate-level-doc-lint.rs b/tests/rustdoc-ui/lints/no-crate-level-doc-lint.rs
+index 12d4892d36..048076b928 100644
+--- a/tests/rustdoc-ui/lints/no-crate-level-doc-lint.rs
++++ b/tests/rustdoc-ui/lints/no-crate-level-doc-lint.rs
+@@ -1,5 +1,6 @@
+ //@ error-pattern: no documentation found
+ //@ normalize-stderr-test: "nightly|beta|1\.[0-9][0-9]\.[0-9]" -> "$$CHANNEL"
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::missing_crate_level_docs)]
+ //^~ NOTE defined here
+ 
+diff --git a/tests/rustdoc-ui/lints/no-redundancy.rs b/tests/rustdoc-ui/lints/no-redundancy.rs
+index 6609ce6a4f..e795888b12 100644
+--- a/tests/rustdoc-ui/lints/no-redundancy.rs
++++ b/tests/rustdoc-ui/lints/no-redundancy.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::redundant_explicit_links)]
+ 
+diff --git a/tests/rustdoc-ui/lints/redundant_explicit_links-utf8.rs b/tests/rustdoc-ui/lints/redundant_explicit_links-utf8.rs
+index 4f4590d45f..5be4b0956e 100644
+--- a/tests/rustdoc-ui/lints/redundant_explicit_links-utf8.rs
++++ b/tests/rustdoc-ui/lints/redundant_explicit_links-utf8.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ /// [`…foo`] [`…bar`] [`Err`]
+ pub struct Broken {}
+diff --git a/tests/rustdoc-ui/lints/redundant_explicit_links.rs b/tests/rustdoc-ui/lints/redundant_explicit_links.rs
+index dc64a5613f..0c6af00e44 100644
+--- a/tests/rustdoc-ui/lints/redundant_explicit_links.rs
++++ b/tests/rustdoc-ui/lints/redundant_explicit_links.rs
+@@ -1,4 +1,5 @@
+ //@ run-rustfix
++//@ compile-flags: -Awarnings
+ 
+ #![deny(rustdoc::redundant_explicit_links)]
+ 
+diff --git a/tests/rustdoc-ui/lints/renamed-lint-still-applies.rs b/tests/rustdoc-ui/lints/renamed-lint-still-applies.rs
+index a4d3a4b497..624670a0e2 100644
+--- a/tests/rustdoc-ui/lints/renamed-lint-still-applies.rs
++++ b/tests/rustdoc-ui/lints/renamed-lint-still-applies.rs
+@@ -1,4 +1,5 @@
+ // compile-args: --crate-type lib
++//@ compile-flags: -Awarnings
+ #![deny(broken_intra_doc_links)]
+ //~^ WARNING renamed to `rustdoc::broken_intra_doc_links`
+ //! [x]
+diff --git a/tests/rustdoc-ui/lints/rustdoc-all-only-stable-lints.rs b/tests/rustdoc-ui/lints/rustdoc-all-only-stable-lints.rs
+index d628867cb9..3033d06a3f 100644
+--- a/tests/rustdoc-ui/lints/rustdoc-all-only-stable-lints.rs
++++ b/tests/rustdoc-ui/lints/rustdoc-all-only-stable-lints.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // Ensure `rustdoc::all` only affects stable lints. See #106289.
+ 
+diff --git a/tests/rustdoc-ui/lints/unknown-renamed-lints.rs b/tests/rustdoc-ui/lints/unknown-renamed-lints.rs
+index ddf03dd079..af51ad4b9b 100644
+--- a/tests/rustdoc-ui/lints/unknown-renamed-lints.rs
++++ b/tests/rustdoc-ui/lints/unknown-renamed-lints.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(unknown_lints)]
+ //~^ NOTE lint level is defined
+ #![deny(renamed_and_removed_lints)]
+diff --git a/tests/rustdoc-ui/lints/unused-braces-lint.rs b/tests/rustdoc-ui/lints/unused-braces-lint.rs
+index fc5dcbf4d7..56762c3741 100644
+--- a/tests/rustdoc-ui/lints/unused-braces-lint.rs
++++ b/tests/rustdoc-ui/lints/unused-braces-lint.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // This tests the bug in #70814, where the unused_braces lint triggered on the following code
+ // without providing a span.
+diff --git a/tests/rustdoc-ui/lints/unused.rs b/tests/rustdoc-ui/lints/unused.rs
+index f52f4c9c9e..b0db496932 100644
+--- a/tests/rustdoc-ui/lints/unused.rs
++++ b/tests/rustdoc-ui/lints/unused.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // This test purpose is to check that unused_imports lint isn't fired
+ // by rustdoc. Why would it? Because when rustdoc is running, it uses
+diff --git a/tests/rustdoc-ui/macro-docs.rs b/tests/rustdoc-ui/macro-docs.rs
+index f7040289e0..c543bc097a 100644
+--- a/tests/rustdoc-ui/macro-docs.rs
++++ b/tests/rustdoc-ui/macro-docs.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ macro_rules! m {
+     () => {
+diff --git a/tests/rustdoc-ui/mismatched_arg_count.rs b/tests/rustdoc-ui/mismatched_arg_count.rs
+index 7841442987..df36bff380 100644
+--- a/tests/rustdoc-ui/mismatched_arg_count.rs
++++ b/tests/rustdoc-ui/mismatched_arg_count.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ trait Trait<'a> {
+     type Assoc;
+ }
+diff --git a/tests/rustdoc-ui/nested-extern-crate-46271.rs b/tests/rustdoc-ui/nested-extern-crate-46271.rs
+index 9efc8063f9..2e603d07ff 100644
+--- a/tests/rustdoc-ui/nested-extern-crate-46271.rs
++++ b/tests/rustdoc-ui/nested-extern-crate-46271.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // hopefully this doesn't cause an ICE
++//@ compile-flags: -Awarnings
+ 
+ // https://github.com/rust-lang/rust/issues/46271
+ 
+diff --git a/tests/rustdoc-ui/nested-macro-rules-47639.rs b/tests/rustdoc-ui/nested-macro-rules-47639.rs
+index 32c4e7b10b..12a860e502 100644
+--- a/tests/rustdoc-ui/nested-macro-rules-47639.rs
++++ b/tests/rustdoc-ui/nested-macro-rules-47639.rs
+@@ -1,5 +1,6 @@
+ //@ check-pass
+ // This should not ICE
++//@ compile-flags: -Awarnings
+ 
+ // https://github.com/rust-lang/rust/issues/47639
+ pub fn test() {
+diff --git a/tests/rustdoc-ui/normalize-cycle.rs b/tests/rustdoc-ui/normalize-cycle.rs
+index 35c03df0ca..93f2a80e90 100644
+--- a/tests/rustdoc-ui/normalize-cycle.rs
++++ b/tests/rustdoc-ui/normalize-cycle.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags: -Znormalize-docs
++//@ compile-flags: -Znormalize-docs -Awarnings
+ // Regression test for <https://github.com/rust-lang/rust/issues/79459>.
+ pub trait Query {}
+ 
+diff --git a/tests/rustdoc-ui/normalize-in-inlined-type-alias.rs b/tests/rustdoc-ui/normalize-in-inlined-type-alias.rs
+index 2f92f173c3..e5c69904ea 100644
+--- a/tests/rustdoc-ui/normalize-in-inlined-type-alias.rs
++++ b/tests/rustdoc-ui/normalize-in-inlined-type-alias.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags: -Znormalize-docs
++//@ compile-flags: -Znormalize-docs -Awarnings
+ 
+ trait Woo<T> {
+     type Assoc;
+diff --git a/tests/rustdoc-ui/normalize-overflow.rs b/tests/rustdoc-ui/normalize-overflow.rs
+index 30b0d2f26e..aaf2bb854a 100644
+--- a/tests/rustdoc-ui/normalize-overflow.rs
++++ b/tests/rustdoc-ui/normalize-overflow.rs
+@@ -1,5 +1,6 @@
+ //@ aux-crate:overflow=overflow.rs
+ //@ check-pass
+ // Regression test for <https://github.com/rust-lang/rust/issues/79506>.
++//@ compile-flags: -Awarnings
+ 
+ extern crate overflow;
+diff --git a/tests/rustdoc-ui/not-wf-ambiguous-normalization.rs b/tests/rustdoc-ui/not-wf-ambiguous-normalization.rs
+index 9f7d6db5d2..9944261d0a 100644
+--- a/tests/rustdoc-ui/not-wf-ambiguous-normalization.rs
++++ b/tests/rustdoc-ui/not-wf-ambiguous-normalization.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: -Znormalize-docs
++//@ compile-flags: -Znormalize-docs -Awarnings
+ 
+ #![feature(type_alias_impl_trait)]
+ 
+diff --git a/tests/rustdoc-ui/output-format-html-stable.rs b/tests/rustdoc-ui/output-format-html-stable.rs
+index f178c51a71..8627c92028 100644
+--- a/tests/rustdoc-ui/output-format-html-stable.rs
++++ b/tests/rustdoc-ui/output-format-html-stable.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: --output-format html
++//@ compile-flags: --output-format html -Awarnings
+ //@ check-pass
+ // This tests that `--output-format html` is accepted without `-Z unstable-options`,
+ // since it has been stable since 1.0.
+diff --git a/tests/rustdoc-ui/proc_macro_bug.rs b/tests/rustdoc-ui/proc_macro_bug.rs
+index e384e4863a..469e797216 100644
+--- a/tests/rustdoc-ui/proc_macro_bug.rs
++++ b/tests/rustdoc-ui/proc_macro_bug.rs
+@@ -1,5 +1,6 @@
+ // regression test for failing to pass `--crate-type proc-macro` to rustdoc
+ // when documenting a proc macro crate https://github.com/rust-lang/rust/pull/107291
++//@ compile-flags: -Awarnings
+ 
+ extern crate proc_macro;
+ 
+diff --git a/tests/rustdoc-ui/pub-use-primitive-document-private-items-95633.rs b/tests/rustdoc-ui/pub-use-primitive-document-private-items-95633.rs
+index d53a67cde8..653383cc80 100644
+--- a/tests/rustdoc-ui/pub-use-primitive-document-private-items-95633.rs
++++ b/tests/rustdoc-ui/pub-use-primitive-document-private-items-95633.rs
+@@ -1,5 +1,5 @@
+ //@ check-pass
+-//@ compile-flags: --document-private-items
++//@ compile-flags: --document-private-items -Awarnings
+ 
+ // This ensures that no ICE is triggered when rustdoc is run on this code.
+ // https://github.com/rust-lang/rust/issues/95633
+diff --git a/tests/rustdoc-ui/range-pattern.rs b/tests/rustdoc-ui/range-pattern.rs
+index 5e47dc826f..b31affbb11 100644
+--- a/tests/rustdoc-ui/range-pattern.rs
++++ b/tests/rustdoc-ui/range-pattern.rs
+@@ -1,3 +1,4 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ fn func(0u8..=255: u8) {}
+diff --git a/tests/rustdoc-ui/recursive-deref-ice.rs b/tests/rustdoc-ui/recursive-deref-ice.rs
+index 5957434e85..8b2738bbae 100644
+--- a/tests/rustdoc-ui/recursive-deref-ice.rs
++++ b/tests/rustdoc-ui/recursive-deref-ice.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // ICE found in https://github.com/rust-lang/rust/issues/83123
+ 
+diff --git a/tests/rustdoc-ui/redundant-explicit-links-123677.rs b/tests/rustdoc-ui/redundant-explicit-links-123677.rs
+index f3a5e81f89..2ca2e1ac3b 100644
+--- a/tests/rustdoc-ui/redundant-explicit-links-123677.rs
++++ b/tests/rustdoc-ui/redundant-explicit-links-123677.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::redundant_explicit_links)]
+ 
+ mod bar {
+diff --git a/tests/rustdoc-ui/remap-path-prefix-failed-doctest-output.rs b/tests/rustdoc-ui/remap-path-prefix-failed-doctest-output.rs
+index 57c0c1af03..65f38393e4 100644
+--- a/tests/rustdoc-ui/remap-path-prefix-failed-doctest-output.rs
++++ b/tests/rustdoc-ui/remap-path-prefix-failed-doctest-output.rs
+@@ -2,7 +2,7 @@
+ // adapted to use that, and that normalize line can go away
+ 
+ //@ failure-status: 101
+-//@ compile-flags:--test -Z unstable-options --remap-path-prefix={{src-base}}=remapped_path --test-args --test-threads=1
++//@ compile-flags:--test -Z unstable-options --remap-path-prefix={{src-base}}=remapped_path --test-args --test-threads=1 -Awarnings
+ //@ rustc-env:RUST_BACKTRACE=0
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ //@ normalize-stdout-test: "exit (status|code): 101" -> "exit status: 101"
+diff --git a/tests/rustdoc-ui/remap-path-prefix-invalid-doctest.rs b/tests/rustdoc-ui/remap-path-prefix-invalid-doctest.rs
+index 96a79e85f6..834bc01c47 100644
+--- a/tests/rustdoc-ui/remap-path-prefix-invalid-doctest.rs
++++ b/tests/rustdoc-ui/remap-path-prefix-invalid-doctest.rs
+@@ -2,7 +2,7 @@
+ // adapted to use that, and that normalize line can go away
+ 
+ //@ failure-status: 101
+-//@ compile-flags:--test -Z unstable-options --remap-path-prefix={{src-base}}=remapped_path --test-args --test-threads=1
++//@ compile-flags:--test -Z unstable-options --remap-path-prefix={{src-base}}=remapped_path --test-args --test-threads=1 -Awarnings
+ //@ rustc-env:RUST_BACKTRACE=0
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+diff --git a/tests/rustdoc-ui/remap-path-prefix-passed-doctest-output.rs b/tests/rustdoc-ui/remap-path-prefix-passed-doctest-output.rs
+index 4c61c43578..818d31543e 100644
+--- a/tests/rustdoc-ui/remap-path-prefix-passed-doctest-output.rs
++++ b/tests/rustdoc-ui/remap-path-prefix-passed-doctest-output.rs
+@@ -4,7 +4,7 @@
+ // FIXME: if/when the output of the test harness can be tested on its own, this test should be
+ // adapted to use that, and that normalize line can go away
+ 
+-//@ compile-flags:--test -Z unstable-options --remap-path-prefix={{src-base}}=remapped_path --test-args --test-threads=1
++//@ compile-flags:--test -Z unstable-options --remap-path-prefix={{src-base}}=remapped_path --test-args --test-threads=1 -Awarnings
+ //@ normalize-stdout-test: "finished in \d+\.\d+s" -> "finished in $$TIME"
+ 
+ // doctest passes at runtime
+diff --git a/tests/rustdoc-ui/rustc-check-passes.rs b/tests/rustdoc-ui/rustc-check-passes.rs
+index 56d59164d6..5556cd2f30 100644
+--- a/tests/rustdoc-ui/rustc-check-passes.rs
++++ b/tests/rustdoc-ui/rustc-check-passes.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(rustdoc_internals)]
+ #![feature(rustdoc_internals)] //~ ERROR
+ 
+diff --git a/tests/rustdoc-ui/scrape-examples/scrape-examples-fail-if-type-error.rs b/tests/rustdoc-ui/scrape-examples/scrape-examples-fail-if-type-error.rs
+index 4fb5c9ab36..96435b6c38 100644
+--- a/tests/rustdoc-ui/scrape-examples/scrape-examples-fail-if-type-error.rs
++++ b/tests/rustdoc-ui/scrape-examples/scrape-examples-fail-if-type-error.rs
+@@ -1,5 +1,5 @@
+ //@ check-fail
+-//@ compile-flags: -Z unstable-options --scrape-examples-output-path {{build-base}}/t.calls --scrape-examples-target-crate foobar
++//@ compile-flags: -Z unstable-options --scrape-examples-output-path {{build-base}}/t.calls --scrape-examples-target-crate foobar -Awarnings
+ 
+ pub fn foo() {
+   INVALID_FUNC();
+diff --git a/tests/rustdoc-ui/scrape-examples/scrape-examples-ice.rs b/tests/rustdoc-ui/scrape-examples/scrape-examples-ice.rs
+index 0c7aeb800d..03ff8fb929 100644
+--- a/tests/rustdoc-ui/scrape-examples/scrape-examples-ice.rs
++++ b/tests/rustdoc-ui/scrape-examples/scrape-examples-ice.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: -Z unstable-options --scrape-examples-output-path {{build-base}}/t.calls --scrape-examples-target-crate foobar
++//@ compile-flags: -Z unstable-options --scrape-examples-output-path {{build-base}}/t.calls --scrape-examples-target-crate foobar -Awarnings
+ //@ check-pass
+ #![no_std]
+ use core as _;
+diff --git a/tests/rustdoc-ui/search-index-generics-recursion-bug-issue-59502.rs b/tests/rustdoc-ui/search-index-generics-recursion-bug-issue-59502.rs
+index d889024802..c7b60853d4 100644
+--- a/tests/rustdoc-ui/search-index-generics-recursion-bug-issue-59502.rs
++++ b/tests/rustdoc-ui/search-index-generics-recursion-bug-issue-59502.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ // Minimization of issue #59502
+ 
+diff --git a/tests/rustdoc-ui/suggestions/html-as-generics-no-suggestions.rs b/tests/rustdoc-ui/suggestions/html-as-generics-no-suggestions.rs
+index 476e3b2d43..3130e16f79 100644
+--- a/tests/rustdoc-ui/suggestions/html-as-generics-no-suggestions.rs
++++ b/tests/rustdoc-ui/suggestions/html-as-generics-no-suggestions.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::invalid_html_tags)]
+ 
+ /// This Vec<32> thing!
+diff --git a/tests/rustdoc-ui/suggestions/html-as-generics.rs b/tests/rustdoc-ui/suggestions/html-as-generics.rs
+index 1b54b598b2..596857606c 100644
+--- a/tests/rustdoc-ui/suggestions/html-as-generics.rs
++++ b/tests/rustdoc-ui/suggestions/html-as-generics.rs
+@@ -1,4 +1,5 @@
+ //@ run-rustfix
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::invalid_html_tags)]
+ 
+ /// This Vec<i32> thing!
+diff --git a/tests/rustdoc-ui/super-glob-40936.rs b/tests/rustdoc-ui/super-glob-40936.rs
+index 75dd40bb37..94b487ddf9 100644
+--- a/tests/rustdoc-ui/super-glob-40936.rs
++++ b/tests/rustdoc-ui/super-glob-40936.rs
+@@ -1,6 +1,7 @@
+ //@ aux-build:issue-40936.rs
+ //@ check-pass
+ //@ build-aux-docs
++//@ compile-flags: -Awarnings
+ 
+ // https://github.com/rust-lang/rust/issues/40936
+ 
+diff --git a/tests/rustdoc-ui/synthetic-auto-trait-impls/const-in-super-trait-and-item-bound.rs b/tests/rustdoc-ui/synthetic-auto-trait-impls/const-in-super-trait-and-item-bound.rs
+index df6de6769d..bd5c996faf 100644
+--- a/tests/rustdoc-ui/synthetic-auto-trait-impls/const-in-super-trait-and-item-bound.rs
++++ b/tests/rustdoc-ui/synthetic-auto-trait-impls/const-in-super-trait-and-item-bound.rs
+@@ -1,6 +1,7 @@
+ // We used to ICE here while trying to synthesize auto trait impls.
+ // issue: 107715
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ pub const N: usize = 1;
+ 
+diff --git a/tests/rustdoc-ui/synthetic-auto-trait-impls/lifetime-generic-user-impl-normalize.rs b/tests/rustdoc-ui/synthetic-auto-trait-impls/lifetime-generic-user-impl-normalize.rs
+index 1b67c2bc87..a42b65518b 100644
+--- a/tests/rustdoc-ui/synthetic-auto-trait-impls/lifetime-generic-user-impl-normalize.rs
++++ b/tests/rustdoc-ui/synthetic-auto-trait-impls/lifetime-generic-user-impl-normalize.rs
+@@ -1,7 +1,7 @@
+ // We used to ICE here while trying to synthesize auto trait impls.
+ // issue: 112242
+ //@ check-pass
+-//@ compile-flags: -Znormalize-docs
++//@ compile-flags: -Znormalize-docs -Awarnings
+ 
+ pub trait MyTrait<'a> {
+     type MyItem;
+diff --git a/tests/rustdoc-ui/synthetic-auto-trait-impls/lifetime-generic-user-impl.rs b/tests/rustdoc-ui/synthetic-auto-trait-impls/lifetime-generic-user-impl.rs
+index 31d1b11ff3..9afed7fb56 100644
+--- a/tests/rustdoc-ui/synthetic-auto-trait-impls/lifetime-generic-user-impl.rs
++++ b/tests/rustdoc-ui/synthetic-auto-trait-impls/lifetime-generic-user-impl.rs
+@@ -1,6 +1,7 @@
+ // We used to ICE here while trying to synthesize auto trait impls.
+ // issue: 123370
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ pub struct Inner<'a, Q>(&'a (), Q);
+ 
+diff --git a/tests/rustdoc-ui/synthetic-auto-trait-impls/projections-in-super-trait-bound-unsatisfied.rs b/tests/rustdoc-ui/synthetic-auto-trait-impls/projections-in-super-trait-bound-unsatisfied.rs
+index f62f8396e9..7af8386032 100644
+--- a/tests/rustdoc-ui/synthetic-auto-trait-impls/projections-in-super-trait-bound-unsatisfied.rs
++++ b/tests/rustdoc-ui/synthetic-auto-trait-impls/projections-in-super-trait-bound-unsatisfied.rs
+@@ -1,5 +1,6 @@
+ // We used to ICE here while trying to synthesize auto trait impls.
+ // issue: 114657
++//@ compile-flags: -Awarnings
+ 
+ pub trait Foo {
+     type FooType;
+diff --git a/tests/rustdoc-ui/synthetic-auto-trait-impls/unconstrained-param-in-impl-ambiguity.rs b/tests/rustdoc-ui/synthetic-auto-trait-impls/unconstrained-param-in-impl-ambiguity.rs
+index 6c62415e06..90606f3903 100644
+--- a/tests/rustdoc-ui/synthetic-auto-trait-impls/unconstrained-param-in-impl-ambiguity.rs
++++ b/tests/rustdoc-ui/synthetic-auto-trait-impls/unconstrained-param-in-impl-ambiguity.rs
+@@ -1,5 +1,6 @@
+ // We used to ICE here while trying to synthesize auto trait impls.
+ // issue: 112828
++//@ compile-flags: -Awarnings
+ 
+ struct Outer(Inner);
+ struct Inner;
+diff --git a/tests/rustdoc-ui/track-diagnostics.rs b/tests/rustdoc-ui/track-diagnostics.rs
+index 403b8c7891..ba8917c822 100644
+--- a/tests/rustdoc-ui/track-diagnostics.rs
++++ b/tests/rustdoc-ui/track-diagnostics.rs
+@@ -1,4 +1,4 @@
+-//@ compile-flags: -Z track-diagnostics
++//@ compile-flags: -Z track-diagnostics -Awarnings
+ //@ error-pattern: created at
+ 
+ // Normalize the emitted location so this doesn't need
+diff --git a/tests/rustdoc-ui/tuple-variadic-check.rs b/tests/rustdoc-ui/tuple-variadic-check.rs
+index 505de53481..32764e5967 100644
+--- a/tests/rustdoc-ui/tuple-variadic-check.rs
++++ b/tests/rustdoc-ui/tuple-variadic-check.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![feature(rustdoc_internals)]
+ 
+ trait Mine {}
+diff --git a/tests/rustdoc-ui/unable-fulfill-trait.rs b/tests/rustdoc-ui/unable-fulfill-trait.rs
+index 4edc7ab76c..f604dfd7cb 100644
+--- a/tests/rustdoc-ui/unable-fulfill-trait.rs
++++ b/tests/rustdoc-ui/unable-fulfill-trait.rs
+@@ -1,4 +1,5 @@
+ // This test ensures that it's not crashing rustdoc.
++//@ compile-flags: -Awarnings
+ 
+ pub struct Foo<'a, 'b, T> {
+     field1: dyn Bar<'a, 'b>,
+diff --git a/tests/rustdoc-ui/unescaped_backticks.rs b/tests/rustdoc-ui/unescaped_backticks.rs
+index e813fba471..391376ec43 100644
+--- a/tests/rustdoc-ui/unescaped_backticks.rs
++++ b/tests/rustdoc-ui/unescaped_backticks.rs
+@@ -1,3 +1,4 @@
++//@ compile-flags: -Awarnings
+ #![deny(rustdoc::unescaped_backticks)]
+ #![allow(rustdoc::broken_intra_doc_links)]
+ #![allow(rustdoc::invalid_html_tags)]
+diff --git a/tests/rustdoc-ui/unportable-markdown.rs b/tests/rustdoc-ui/unportable-markdown.rs
+index 8035e680f3..7a2ff0e46f 100644
+--- a/tests/rustdoc-ui/unportable-markdown.rs
++++ b/tests/rustdoc-ui/unportable-markdown.rs
+@@ -4,6 +4,7 @@
+ //
+ // This version of the lint is targeted at two especially-common cases where docs got broken.
+ // Other differences in parsing should not warn.
++//@ compile-flags: -Awarnings
+ #![allow(rustdoc::broken_intra_doc_links)]
+ #![deny(rustdoc::unportable_markdown)]
+ 
+diff --git a/tests/rustdoc-ui/unused-extern-crate.rs b/tests/rustdoc-ui/unused-extern-crate.rs
+index 240dd1f00e..019b99930f 100644
+--- a/tests/rustdoc-ui/unused-extern-crate.rs
++++ b/tests/rustdoc-ui/unused-extern-crate.rs
+@@ -1,3 +1,4 @@
+ //@ check-pass
+ //@ aux-crate:panic_item=panic-item.rs
+ // @has unused_extern_crate/index.html
++//@ compile-flags: -Awarnings
+diff --git a/tests/rustdoc-ui/wasm-safe.rs b/tests/rustdoc-ui/wasm-safe.rs
+index 6ee5e0b99f..63717e240e 100644
+--- a/tests/rustdoc-ui/wasm-safe.rs
++++ b/tests/rustdoc-ui/wasm-safe.rs
+@@ -1,4 +1,5 @@
+ //@ check-pass
++//@ compile-flags: -Awarnings
+ 
+ #[cfg(any(target_arch = "wasm32", doc))]
+ #[target_feature(enable = "simd128")]

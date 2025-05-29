@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Check if an argument was provided.
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 path/to/failing/test/names"
+    exit 1
+fi
+
+file_list="$1"
+
+# Make sure input file exists.
+if [ ! -f "$file_list" ]; then
+    echo "Error: File '$file_list' does not exist."
+    exit 1
+fi
+# Make sure input file is readable.
+if [ ! -r "$file_list" ]; then
+    echo "Error: File '$file_list' is not readable."
+    exit 1
+fi
+
+while IFS= read -r filepath || [ -n "$filepath" ]; do
+    # Skip empty lines.
+    [[ -z "$filepath" ]] && continue
+    [[ ! -f "$filepath" ]] && echo "WARNING: skipping nonexistent file $filepath" && continue
+
+    # Read the file into an array to work with lines.
+    mapfile -t lines <"$filepath"
+    found_compile_flags_line=false
+    suppressing_warnings=false
+    insert_line_index=-1
+
+    for i in "${!lines[@]}"; do
+        line="${lines[$i]}"
+
+        # Check to see if there's already a '//@ compile-flags: ' line.
+        if [[ "$line" =~ ^[[:space:]]*//[@]?[[:space:]]*compile-flags: ]]; then
+            found_compile_flags_line=true
+            # If warnings aren't already being suppressed, suppress them.
+            if [[ "$line" != *-Awarnings* ]]; then
+                lines[$i]="$line -Awarnings"
+            fi
+            break
+        fi
+    done
+
+    if ! $found_compile_flags_line; then
+        # No compile-flags directive yet.
+
+        # Figure out where to put the line:
+        for i in "${!lines[@]}"; do
+            line="${lines[$i]}"
+            if [[ ! "$line" =~ ^[[:space:]]*// ]]; then
+                insert_line_index=$i
+                break
+            fi
+        done
+
+        if [ "$insert_line_index" -ge 0 ]; then
+            # Insert the line above the first line that isn't a comment.
+            lines=(
+                "${lines[@]:0:$insert_line_index}"
+                "//@ compile-flags: -Awarnings"
+                "${lines[@]:$insert_line_index}"
+            )
+        else
+            # All lines are comments or the file is empty-
+            # just stick the line to the end of the file.
+            lines+=("//@ compile-flags: -Awarnings")
+        fi
+    fi
+
+    # Write changes back to the file.
+    printf "%s\n" "${lines[@]}" >"$filepath"
+    echo "Done processing $filepath"
+done <"$file_list"
