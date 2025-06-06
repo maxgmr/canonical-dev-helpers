@@ -4,6 +4,10 @@ Little tools I use to make my Canonical work easier.
 
 To use the bash scripts, I just symlink the script to a directory in my `PATH`; e.g., `/usr/local/bin`.
 
+## sbuild-purge
+
+Intended for use with the `rustc` source package. Un-applies all `quilt` patches, expires all `schroot` sessions, purges anything inside the filesystem of all `sbuild` builds, deletes all Debian source artifacts, and deletes the patch queue folder.
+
 ## suppress-rustdoc-ui-warnings
 
 _Currently not working. Included for future fix attempts._
