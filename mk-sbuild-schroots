@@ -3,6 +3,7 @@
 set -e
 
 declare -a releases=(
+    "questing"
     "plucky"
     "oracular"
     "noble"
