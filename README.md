@@ -4,6 +4,14 @@ Little tools I use to make my Canonical work easier.
 
 To use the bash scripts, I just symlink the script to a directory in my `PATH`; e.g., `/usr/local/bin`.
 
+## win-rustc-prune-list
+
+Helper for maintaining the `rustc` source package. Whenever a new upstream Rust version is released, we must prune all Windows dependencies from the new vendored crates.
+
+This script generates a list of lines within vendored crates which may possibly include an unwanted Windows dependency.
+
+The intended use of this script is to redirect the output of the script to a file and go down the list one-by-one, checking to see if that particular section of code must be pruned.
+
 ## sbuild-purge
 
 Intended for use with the `rustc` source package. Un-applies all `quilt` patches, expires all `schroot` sessions, purges anything inside the filesystem of all `sbuild` builds, deletes all Debian source artifacts, and deletes the patch queue folder.
