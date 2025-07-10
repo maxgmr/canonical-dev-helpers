@@ -23,4 +23,6 @@ find vendor -iname Cargo.toml -exec grep -H -n \
     -e 'kernel32' \
     -e 'miow' \
     -e 'win32' \
+    -e 'dunce' \
+    -e 'winsplit' \
     {} \;
