@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+COPYRIGHT_FILE="debian/copyright"
+PROJECT_ROOT="." # adjust if needed
+
+# 1. Extract all globs from the Files: blocks
+mapfile -t patterns < <(awk '
+  BEGIN { in_files = 0 }
+  /^Files:/ {
+    in_files = 1
+    line = $0
+    sub(/^Files:[[:space:]]*/, "", line)
+    if (length(line)) print line
+    next
+  }
+  /^[^[:space:]]/ { in_files = 0 }
+  in_files && /^[[:space:]]+/ {
+    gsub(/^[[:space:]]+/, "")
+    print
+  }
+' "$COPYRIGHT_FILE")
+
+# 2. Track previously seen files
+declare -A matched_files
+declare -A pattern_to_files
+declare -a redundant_patterns=()
+
+for pattern in "${patterns[@]}"; do
+    expanded=("$PROJECT_ROOT"/$pattern)
+    this_files=()
+    for f in "${expanded[@]}"; do
+        if [[ -e $f ]]; then
+            rel="${f#$PROJECT_ROOT/}"
+            this_files+=("$rel")
+        fi
+    done
+
+    pattern_to_files["$pattern"]="${this_files[*]}"
+
+    is_redundant=1
+    for f in "${this_files[@]}"; do
+        if [[ -z "${matched_files[$f]+x}" ]]; then
+            is_redundant=0
+            break
+        fi
+    done
+
+    if [[ $is_redundant -eq 1 ]]; then
+        redundant_patterns+=("$pattern")
+    fi
+
+    for f in "${this_files[@]}"; do
+        matched_files["$f"]=1
+    done
+done
+
+# 3. Output only redundant patterns that contain at least one digit
+for p in "${redundant_patterns[@]}"; do
+    if [[ $p =~ [0-9] ]]; then
+        echo "$p"
+    fi
+done

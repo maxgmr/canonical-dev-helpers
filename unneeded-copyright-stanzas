@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+COPYRIGHT_FILE="debian/copyright"
+PROJECT_ROOT="." # Adjust if needed
+
+awk '
+  BEGIN { in_files = 0 }
+  /^Files:/ {
+    in_files = 1
+    line = $0
+    sub(/^Files:[[:space:]]*/, "", line)
+    if (length(line)) print line
+    next
+  }
+  /^[^[:space:]]/ { in_files = 0 }
+  in_files && /^[[:space:]]+/ {
+    gsub(/^[[:space:]]+/, "")
+    print
+  }
+' "$COPYRIGHT_FILE" | while IFS= read -r pattern; do
+    matches=("$PROJECT_ROOT"/$pattern)
+    if [[ ${#matches[@]} -eq 1 && ! -e "${matches[0]}" ]]; then
+        echo "$pattern"
+    fi
+done
