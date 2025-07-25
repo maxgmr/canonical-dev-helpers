@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# OS_PRUNE_PATCH="TODO"
+#
+# # Check if the correct patch is on top
+# TOP_PATCH=$(quilt top 2>/dev/null || true)
+# if [[ "$TOP_PATCH" != "$WIN_PRUNE_PATCH" ]]; then
+#     echo "Error: Current quilt patch is '$TOP_PATCH'. Expected '$OS_PRUNE_PATCH'."
+#     exit 2
+# fi
+
+# Generate the list of lines to check
+find vendor -iname Cargo.toml -exec grep -H -n \
+    -e 'macos' \
+    -e 'redox' \
+    -e 'hermit' \
+    -e 'ios' \
+    -e 'android' \
+    -e 'haiku' \
+    -e 'aix' \
+    -e 'freebsd' \
+    -e 'vita' \
+    -e 'android' \
+    {} \;
