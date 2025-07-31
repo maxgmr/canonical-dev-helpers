@@ -22,5 +22,13 @@ find vendor -iname Cargo.toml -exec grep -H -n \
     -e 'aix' \
     -e 'freebsd' \
     -e 'vita' \
-    -e 'android' \
+    -e 'security-framework' \
+    -e 'core-foundation' \
+    -e 'fsevent' \
+    -e 'fsevent-sys' \
+    -e 'kqueue' \
+    -e 'fuchsia' \
+    -e 'fuchsia-cprng' \
+    -e 'mach2' \
+    -e 'core-foundation-sys' \
     {} \;
