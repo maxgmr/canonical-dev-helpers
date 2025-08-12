@@ -31,4 +31,5 @@ find vendor -iname Cargo.toml -exec grep -H -n \
     -e 'fuchsia-cprng' \
     -e 'mach2' \
     -e 'core-foundation-sys' \
+    -e 'objc2_io_kit' \
     {} \;
