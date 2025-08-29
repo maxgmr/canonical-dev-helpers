@@ -14,7 +14,7 @@ Keep in mind that this script _will_ produce false positives like `vendor/git2-c
 
 This script helps with `rustc` maintenance by flagging the `d/copyright` stanzas with no matching files in the source tree. The stanzas produced by this list can likely be removed from `d/copyright`, but make sure you manually verify things just to be safe.
 
-## win-rustc-prune-list
+## win-vendored-rustc-prune-list
 
 Helper for maintaining the `rustc` source package. Whenever a new upstream Rust version is released, we must prune all Windows dependencies from the new vendored crates.
 
