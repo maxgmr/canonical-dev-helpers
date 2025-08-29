@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+WIN_PRUNE_PATCH="prune/d-0020-remove-windows-dependencies.patch"
+
+# Check if the correct patch is on top
+TOP_PATCH=$(quilt top 2>/dev/null || true)
+if [[ "$TOP_PATCH" != "$WIN_PRUNE_PATCH" ]]; then
+    echo "Error: Current quilt patch is '$TOP_PATCH'. Expected '$WIN_PRUNE_PATCH'."
+    exit 2
+fi
+
+# Generate the list of lines to check
+find src compiler library -iname Cargo.toml -exec grep -H -n \
+    -e 'schannel' \
+    -e 'windows-sys' \
+    -e 'winapi' \
+    -e 'ntapi' \
+    -e 'wincon' \
+    -e 'winreg' \
+    -e 'windows' \
+    -e 'kernel32' \
+    -e 'miow' \
+    -e 'Win32' \
+    -e 'winsplit' \
+    {} \;

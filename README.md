@@ -22,6 +22,10 @@ This script generates a list of lines within vendored crates which may possibly 
 
 The intended use of this script is to redirect the output of the script to a file and go down the list one-by-one, checking to see if that particular section of code must be pruned.
 
+## win-rustc-prune-list
+
+Same thing as `win-vendored-rustc-prune-list`, but for the Rust source code itself rather than its vendored dependencies.
+
 ## sbuild-purge
 
 Intended for use with the `rustc` source package. Un-applies all `quilt` patches, expires all `schroot` sessions, purges anything inside the filesystem of all `sbuild` builds, deletes all Debian source artifacts, and deletes the patch queue folder.
